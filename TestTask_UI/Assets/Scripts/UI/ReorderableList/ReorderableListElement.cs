@@ -163,7 +163,7 @@ namespace UnityEngine.UI.Extensions
                 //|| (_oldReorderableListRaycasted != _reorderableList && !IsTransferable)
                 || ((_fakeElement.parent == _currentReorderableListRaycasted.Content
                     ? _currentReorderableListRaycasted.Content.childCount - 1
-                    : _currentReorderableListRaycasted.Content.childCount) >= _currentReorderableListRaycasted.maxItems && !_currentReorderableListRaycasted.IsDisplacable)
+                    : _currentReorderableListRaycasted.Content.childCount) >= _currentReorderableListRaycasted.maxItems)// && !_currentReorderableListRaycasted.IsDisplacable
                 || _currentReorderableListRaycasted.maxItems <= 0)
             {
                 RefreshSizes();
@@ -312,8 +312,8 @@ namespace UnityEngine.UI.Extensions
                     if (_currentReorderableListRaycasted != null)
                     {
                         if ((_currentReorderableListRaycasted.Content.childCount >=
-                             _currentReorderableListRaycasted.maxItems &&
-                             !_currentReorderableListRaycasted.IsDisplacable)
+                             _currentReorderableListRaycasted.maxItems)// &&
+                             //!_currentReorderableListRaycasted.IsDisplacable)
                             || _currentReorderableListRaycasted.maxItems <= 0)
                         {
                             GameObject o = _draggingObject.gameObject;
