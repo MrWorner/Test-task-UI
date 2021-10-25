@@ -159,12 +159,13 @@ namespace UnityEngine.UI.Extensions
             }
 
             //If nothing found or the list is not dropable, put the fake element outside
-            if (_currentReorderableListRaycasted == null// || _currentReorderableListRaycasted.IsDropable == false
-                //|| (_oldReorderableListRaycasted != _reorderableList && !IsTransferable)
-                || ((_fakeElement.parent == _currentReorderableListRaycasted.Content
-                    ? _currentReorderableListRaycasted.Content.childCount - 1
-                    : _currentReorderableListRaycasted.Content.childCount) >= _currentReorderableListRaycasted.maxItems)// && !_currentReorderableListRaycasted.IsDisplacable
-                || _currentReorderableListRaycasted.maxItems <= 0)
+            if (
+                _currentReorderableListRaycasted == null
+                //|| ((_fakeElement.parent == _currentReorderableListRaycasted.Content
+                //    ? _currentReorderableListRaycasted.Content.childCount - 1
+                //    : _currentReorderableListRaycasted.Content.childCount) >= _currentReorderableListRaycasted.maxItems)// && !_currentReorderableListRaycasted.IsDisplacable
+                //|| _currentReorderableListRaycasted.maxItems <= 0
+                )
             {
                 RefreshSizes();
                 _fakeElement.transform.SetParent(_reorderableList.DraggableArea, false);
@@ -178,7 +179,7 @@ namespace UnityEngine.UI.Extensions
             //Else find the best position on the list and put fake element on the right index 
             else
             {
-                if (_currentReorderableListRaycasted.Content.childCount < _currentReorderableListRaycasted.maxItems && _fakeElement.parent != _currentReorderableListRaycasted.Content)
+                if (_fakeElement.parent != _currentReorderableListRaycasted.Content)
                 {
                     _fakeElement.SetParent(_currentReorderableListRaycasted.Content, false);
                 }
@@ -204,18 +205,14 @@ namespace UnityEngine.UI.Extensions
                     }
                 }
                 if ((_currentReorderableListRaycasted != _oldReorderableListRaycasted || targetIndex != _displacedFromIndex)
-                    && _currentReorderableListRaycasted.Content.childCount == _currentReorderableListRaycasted.maxItems)
+                    )
                 {
                     Transform toDisplace = _currentReorderableListRaycasted.Content.GetChild(targetIndex);
                     if (_displacedObject != null)
                     {
                         Debug.Log("<color=red>DISABLED!</color>");
                         //revertDisplacedElement();
-                        if (_currentReorderableListRaycasted.Content.childCount > _currentReorderableListRaycasted.maxItems)
-                        {
-                            Debug.Log("<color=red>DISABLED!</color>");
-                            //displaceElement(targetIndex, toDisplace);
-                        }
+
                     }
                     else if (_fakeElement.parent != _currentReorderableListRaycasted.Content)
                     {
@@ -311,23 +308,19 @@ namespace UnityEngine.UI.Extensions
                     //If there is no more room for the element in the target list, notify it (OnElementDroppedWithMaxItems event) 
                     if (_currentReorderableListRaycasted != null)
                     {
-                        if ((_currentReorderableListRaycasted.Content.childCount >=
-                             _currentReorderableListRaycasted.maxItems)// &&
-                             //!_currentReorderableListRaycasted.IsDisplacable)
-                            || _currentReorderableListRaycasted.maxItems <= 0)
-                        {
-                            GameObject o = _draggingObject.gameObject;
-                            _reorderableList.OnElementDroppedWithMaxItems.Invoke(
-                                new ReorderableList.ReorderableListEventStruct
-                                {
-                                    DroppedObject = o,
-                                    IsAClone = false,
-                                    SourceObject = o,
-                                    FromList = _reorderableList,
-                                    ToList = _currentReorderableListRaycasted,
-                                    FromIndex = _fromIndex
-                                });
-                        }
+
+                        GameObject o = _draggingObject.gameObject;
+                        _reorderableList.OnElementDroppedWithMaxItems.Invoke(
+                            new ReorderableList.ReorderableListEventStruct
+                            {
+                                DroppedObject = o,
+                                IsAClone = false,
+                                SourceObject = o,
+                                FromList = _reorderableList,
+                                ToList = _currentReorderableListRaycasted,
+                                FromIndex = _fromIndex
+                            });
+
                     }
 
                 }

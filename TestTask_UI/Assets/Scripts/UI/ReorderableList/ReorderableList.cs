@@ -17,9 +17,6 @@ namespace UnityEngine.UI.Extensions
         public RectTransform DraggableArea;
         // This sets every item size (when being dragged over this list) to the current size of the first element of this list
 
-        public int maxItems = int.MaxValue;
-
-
         [Header("UI Re-orderable Events")]
         public ReorderableListHandler OnElementDropped = new ReorderableListHandler();
         public ReorderableListHandler OnElementGrabbed = new ReorderableListHandler();
