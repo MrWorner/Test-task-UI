@@ -906,7 +906,7 @@ MonoBehaviour:
   IsDropable: 1
   IsDisplacable: 0
   EqualizeSizesOnDrag: 0
-  maxItems: 10
+  maxItems: 9999
   OnElementDropped:
     m_PersistentCalls:
       m_Calls: []
@@ -2351,7 +2351,7 @@ MonoBehaviour:
   IsDropable: 1
   IsDisplacable: 0
   EqualizeSizesOnDrag: 0
-  maxItems: 10
+  maxItems: 999
   OnElementDropped:
     m_PersistentCalls:
       m_Calls: []

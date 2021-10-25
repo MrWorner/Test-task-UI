@@ -52,8 +52,11 @@ namespace UnityEngine.UI.Extensions
 
         public RectTransform Content
         {
+
             get
             {
+                //++++++++++++++
+                //Debug.Log("<color=green>Content()!</color>");
                 if (_content == null)
                 {
                     _content = ContentLayout.GetComponent<RectTransform>();
@@ -62,33 +65,36 @@ namespace UnityEngine.UI.Extensions
             }
         }
 
-        Canvas GetCanvas()
-        {
-            Transform t = transform;
-            Canvas canvas = null;
+        //Canvas GetCanvas()
+        //{
+        //    Debug.Log("<color=green>GetCanvas()!</color>");
+        //    Transform t = transform;
+        //    Canvas canvas = null;
 
 
-            int lvlLimit = 100;
-            int lvl = 0;
+        //    int lvlLimit = 100;
+        //    int lvl = 0;
 
-            while (canvas == null && lvl < lvlLimit)
-            {
-                canvas = t.gameObject.GetComponent<Canvas>();
-                if (canvas == null)
-                {
-                    t = t.parent;
-                }
+        //    while (canvas == null && lvl < lvlLimit)
+        //    {
+        //        canvas = t.gameObject.GetComponent<Canvas>();
+        //        if (canvas == null)
+        //        {
+        //            t = t.parent;
+        //        }
 
-                lvl++;
-            }
-            return canvas;
-        }
+        //        lvl++;
+        //    }
+        //    return canvas;
+        //}
 
         /// <summary>
         /// Refresh related list content
         /// </summary>
         public void Refresh()
         {
+            //++++++++++++++
+            //Debug.Log("<color=green>Refresh()!</color>");
             Destroy(_listContent);
             _listContent = ContentLayout.gameObject.AddComponent<ReorderableListContent>();
             _listContent.Init(this);
@@ -96,7 +102,8 @@ namespace UnityEngine.UI.Extensions
 
         private void Start()
         {
-
+            //++++++++++++++
+            //Debug.Log("<color=green>Start()!</color>");
             if (ContentLayout == null)
             {
                 Debug.LogError("You need to have a child LayoutGroup content set for the list: " + name, gameObject);
@@ -131,6 +138,7 @@ namespace UnityEngine.UI.Extensions
 
             public void Cancel()
             {
+                Debug.Log("<color=green>Cancel()!</color>");
                 SourceObject.GetComponent<ReorderableListElement>().isValid = false;
             }
         }
@@ -145,11 +153,12 @@ namespace UnityEngine.UI.Extensions
         {
         }
 
-        public void TestReOrderableListTarget(ReorderableListEventStruct item)
-        {
-            Debug.Log("Event Received");
-            Debug.Log("Hello World, is my item a clone? [" + item.IsAClone + "]");
-        }
+        //public void TestReOrderableListTarget(ReorderableListEventStruct item)
+        //{
+        //    Debug.Log("<color=green>TestReOrderableListTarget()!</color>");
+        //    Debug.Log("Event Received");
+        //    Debug.Log("Hello World, is my item a clone? [" + item.IsAClone + "]");
+        //}
 
         #endregion
     }
