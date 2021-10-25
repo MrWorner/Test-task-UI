@@ -159,7 +159,7 @@ namespace UnityEngine.UI.Extensions
             }
 
             //If nothing found or the list is not dropable, put the fake element outside
-            if (_currentReorderableListRaycasted == null || _currentReorderableListRaycasted.IsDropable == false
+            if (_currentReorderableListRaycasted == null// || _currentReorderableListRaycasted.IsDropable == false
                 //|| (_oldReorderableListRaycasted != _reorderableList && !IsTransferable)
                 || ((_fakeElement.parent == _currentReorderableListRaycasted.Content
                     ? _currentReorderableListRaycasted.Content.childCount - 1
@@ -351,7 +351,7 @@ namespace UnityEngine.UI.Extensions
             Vector2 size = _draggingObjectOriginalSize;
 
             if (_currentReorderableListRaycasted != null
-                && _currentReorderableListRaycasted.IsDropable
+                //&& _currentReorderableListRaycasted.IsDropable
                 && _currentReorderableListRaycasted.Content.childCount > 0
                 && _currentReorderableListRaycasted.EqualizeSizesOnDrag)
             {

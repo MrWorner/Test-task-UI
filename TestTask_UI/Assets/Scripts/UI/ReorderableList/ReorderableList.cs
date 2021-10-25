@@ -22,8 +22,8 @@ namespace UnityEngine.UI.Extensions
         //[Tooltip("Should the draggable components be removed or cloned?")]
         //public bool CloneDraggedObject = false;
 
-        [Tooltip("Can new draggable items be dropped in to the container?")]
-        public bool IsDropable = true;
+        //[Tooltip("Can new draggable items be dropped in to the container?")]
+        //public bool IsDropable = true;
 
         [Tooltip("Should dropped items displace a current item if the list is full?\n " +
             "Depending on the dropped items origin list, the displaced item may be added, dropped in space or deleted.")]
@@ -88,7 +88,7 @@ namespace UnityEngine.UI.Extensions
             {
                 DraggableArea = transform.root.GetComponentInChildren<Canvas>().GetComponent<RectTransform>();
             }
-            if (IsDropable && !GetComponent<Graphic>())
+            if (!GetComponent<Graphic>())
             {
                 Debug.LogError("You need to have a Graphic control (such as an Image) for the list [" + name + "] to be droppable", gameObject);
                 return;
