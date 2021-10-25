@@ -65,29 +65,6 @@ namespace UnityEngine.UI.Extensions
             }
         }
 
-        //Canvas GetCanvas()
-        //{
-        //    Debug.Log("<color=green>GetCanvas()!</color>");
-        //    Transform t = transform;
-        //    Canvas canvas = null;
-
-
-        //    int lvlLimit = 100;
-        //    int lvl = 0;
-
-        //    while (canvas == null && lvl < lvlLimit)
-        //    {
-        //        canvas = t.gameObject.GetComponent<Canvas>();
-        //        if (canvas == null)
-        //        {
-        //            t = t.parent;
-        //        }
-
-        //        lvl++;
-        //    }
-        //    return canvas;
-        //}
-
         /// <summary>
         /// Refresh related list content
         /// </summary>
@@ -152,13 +129,6 @@ namespace UnityEngine.UI.Extensions
         public class ReorderableListHandler : UnityEvent<ReorderableListEventStruct>
         {
         }
-
-        //public void TestReOrderableListTarget(ReorderableListEventStruct item)
-        //{
-        //    Debug.Log("<color=green>TestReOrderableListTarget()!</color>");
-        //    Debug.Log("Event Received");
-        //    Debug.Log("Hello World, is my item a clone? [" + item.IsAClone + "]");
-        //}
 
         #endregion
     }
