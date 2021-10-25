@@ -12,10 +12,10 @@ namespace UnityEngine.UI.Extensions
     [RequireComponent(typeof(RectTransform), typeof(LayoutElement))]
     public class ReorderableListElement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
-        [Tooltip("Can this element be dragged?")]
-        public bool IsGrabbable = true;
-        [Tooltip("Can this element be transfered to another list")]
-        public bool IsTransferable = true;
+        //[Tooltip("Can this element be dragged?")]
+        //public bool IsGrabbable = true;
+        //[Tooltip("Can this element be transfered to another list")]
+        //public bool IsTransferable = true;
         [Tooltip("Can this element be dropped in space?")]
         public bool isDroppableInSpace = false;
 
@@ -57,7 +57,7 @@ namespace UnityEngine.UI.Extensions
                 return;
 
             //Can't drag, return...
-            if (!_reorderableList.IsDraggable || !this.IsGrabbable)
+            if (!_reorderableList.IsDraggable)// || !this.IsGrabbable
             {
                 _draggingObject = null;
                 return;
@@ -121,8 +121,8 @@ namespace UnityEngine.UI.Extensions
 
                 if (!isValid)
                 {
-                    Debug.Log("<color=red>DISABLED!</color>");
-                    //CancelDrag();
+                    //Debug.Log("<color=red>DISABLED!</color>");
+                    CancelDrag();
                     return;
                 }
             }
@@ -143,8 +143,8 @@ namespace UnityEngine.UI.Extensions
                 return;
             if (!isValid)
             {
-                Debug.Log("<color=red>DISABLED!</color>");
-                //CancelDrag();
+                //Debug.Log("<color=red>DISABLED!</color>");
+                CancelDrag();
                 return;
             }
             //Set dragging object on cursor
@@ -169,7 +169,7 @@ namespace UnityEngine.UI.Extensions
 
             //If nothing found or the list is not dropable, put the fake element outside
             if (_currentReorderableListRaycasted == null || _currentReorderableListRaycasted.IsDropable == false
-                || (_oldReorderableListRaycasted != _reorderableList && !IsTransferable)
+                //|| (_oldReorderableListRaycasted != _reorderableList && !IsTransferable)
                 || ((_fakeElement.parent == _currentReorderableListRaycasted.Content 
                     ? _currentReorderableListRaycasted.Content.childCount - 1 
                     : _currentReorderableListRaycasted.Content.childCount) >= _currentReorderableListRaycasted.maxItems && !_currentReorderableListRaycasted.IsDisplacable)
@@ -274,8 +274,8 @@ namespace UnityEngine.UI.Extensions
                     }
                     if (!isValid)
                     {
-                        Debug.Log("<color=red>DISABLED!</color>");
-                        //CancelDrag();
+                        //Debug.Log("<color=red>DISABLED!</color>");
+                        CancelDrag();
 
                         return;
                     }
@@ -317,8 +317,8 @@ namespace UnityEngine.UI.Extensions
                     }
                     else
                     {
-                        Debug.Log("<color=red>DISABLED!</color>");
-                        //CancelDrag();
+                        
+                        CancelDrag();
                     }
                     
                     //If there is no more room for the element in the target list, notify it (OnElementDroppedWithMaxItems event) 
@@ -380,6 +380,57 @@ namespace UnityEngine.UI.Extensions
             _fakeElementLE.preferredWidth = _draggingObjectLE.preferredWidth = size.x;
             _fakeElement.GetComponent<RectTransform>().sizeDelta = size;
            
+        }
+
+        void CancelDrag()
+        {
+            _isDragging = false;
+            //If it's a clone, delete it
+            if (_reorderableList.CloneDraggedObject)
+            {
+                Destroy(_draggingObject.gameObject);
+            }
+            //Else replace the draggedObject to his first place
+            else
+            {
+                RefreshSizes();
+                _draggingObject.SetParent(_reorderableList.Content, false);
+                _draggingObject.rotation = _reorderableList.Content.transform.rotation;
+                _draggingObject.SetSiblingIndex(_fromIndex);
+
+
+                var args = new ReorderableList.ReorderableListEventStruct
+                {
+                    DroppedObject = _draggingObject.gameObject,
+                    IsAClone = _reorderableList.CloneDraggedObject,
+                    SourceObject = _reorderableList.CloneDraggedObject ? gameObject : _draggingObject.gameObject,
+                    FromList = _reorderableList,
+                    FromIndex = _fromIndex,
+                    ToList = _reorderableList,
+                    ToIndex = _fromIndex
+                };
+
+                _reorderableList.Refresh();
+
+                _reorderableList.OnElementAdded.Invoke(args);
+
+                if (!isValid)
+                    throw new Exception("Transfer is already Canceled.");
+
+            }
+
+            //Delete fake element
+            if (_fakeElement != null)
+            {
+                Destroy(_fakeElement.gameObject);
+                _fakeElement = null;
+            }
+            if (_displacedObject != null)
+            {
+                Debug.Log("<color=red>DISABLED!</color>");
+                //revertDisplacedElement();
+            }
+            _canvasGroup.blocksRaycasts = true;
         }
 
         public void Init(ReorderableList reorderableList)
