@@ -1,6 +1,7 @@
 ﻿/// Credit Ziboo
 /// Sourced from - http://forum.unity3d.com/threads/free-reorderable-list.364600/
 
+using Sirenix.OdinInspector;
 using System;
 using UnityEngine.Events;
 
@@ -11,8 +12,8 @@ namespace UnityEngine.UI.Extensions
     //[AddComponentMenu("UI/Extensions/Re-orderable list")]
     public class ReorderableList : MonoBehaviour
     {
-        public LayoutGroup ContentLayout;//Child container with re-orderable items in a layout group
-        public RectTransform DraggableArea;//Parent area to draw the dragged element on top of containers. Defaults to the root Canvas
+        [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private LayoutGroup _contentLayout;//Child container with re-orderable items in a layout group
+        [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private RectTransform _draggableArea;//Parent area to draw the dragged element on top of containers. Defaults to the root Canvas
         // This sets every item size (when being dragged over this list) to the current size of the first element of this list
         [Header("UI Re-orderable Events")]
         public ReorderableListHandler OnElementDropped = new ReorderableListHandler();
@@ -39,6 +40,9 @@ namespace UnityEngine.UI.Extensions
                 return _content;
             }
         }
+
+        public LayoutGroup ContentLayout { get => _contentLayout; set => _contentLayout = value; }//Child container with re-orderable items in a layout group
+        public RectTransform DraggableArea { get => _draggableArea; set => _draggableArea = value; }//Parent area to draw the dragged element on top of containers. Defaults to the root Canvas
 
         /// <summary>
         /// Refresh related list content
