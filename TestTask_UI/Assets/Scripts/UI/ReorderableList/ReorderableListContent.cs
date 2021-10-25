@@ -16,8 +16,6 @@ namespace UnityEngine.UI.Extensions
 
         private void OnEnable()
         {
-            //+++++++++++
-            //Debug.Log("<color=green>OnEnable()!</color>");
             if (_rect)StartCoroutine(RefreshChildren());
         }
 
@@ -29,8 +27,6 @@ namespace UnityEngine.UI.Extensions
 
         public void Init(ReorderableList extList)
         {
-            //+++++++++++
-            //Debug.Log("<color=green>Init()!</color>");
             _extList = extList;
             _rect = GetComponent<RectTransform>();
             _cachedChildren = new List<Transform>();

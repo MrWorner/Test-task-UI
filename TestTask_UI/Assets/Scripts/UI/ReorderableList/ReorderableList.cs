@@ -16,11 +16,11 @@ namespace UnityEngine.UI.Extensions
         [Tooltip("Parent area to draw the dragged element on top of containers. Defaults to the root Canvas")]
         public RectTransform DraggableArea;
 
-        [Tooltip("Can items be dragged from the container?")]
-        public bool IsDraggable = true;
+        //[Tooltip("Can items be dragged from the container?")]
+        //public bool IsDraggable = true;
 
-        [Tooltip("Should the draggable components be removed or cloned?")]
-        public bool CloneDraggedObject = false;
+        //[Tooltip("Should the draggable components be removed or cloned?")]
+        //public bool CloneDraggedObject = false;
 
         [Tooltip("Can new draggable items be dropped in to the container?")]
         public bool IsDropable = true;
@@ -55,8 +55,6 @@ namespace UnityEngine.UI.Extensions
 
             get
             {
-                //++++++++++++++
-                //Debug.Log("<color=green>Content()!</color>");
                 if (_content == null)
                 {
                     _content = ContentLayout.GetComponent<RectTransform>();

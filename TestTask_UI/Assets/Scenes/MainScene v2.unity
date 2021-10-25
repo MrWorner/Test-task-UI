@@ -629,7 +629,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 853621233}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -899,8 +899,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c781d9498ee2a649bc47afa35081679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _path: 
-  _fileName: 
+  _path: "G:/\u0421\u043E\u0431\u0435\u0441\u0435\u0434\u043E\u0432\u0430\u043D\u0438\u0435/New
+    folder/TestTask/TestTask_UI/Assets"
+  _fileName: SavedSession.json
 --- !u!4 &1147820453
 Transform:
   m_ObjectHideFlags: 0
@@ -1600,6 +1601,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1901262315}
+  - component: {fileID: 1901262317}
+  - component: {fileID: 1901262316}
   m_Layer: 0
   m_Name: Save/Load
   m_TagString: Untagged
@@ -1621,6 +1624,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1901262316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1901262314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff10cd199e66ac4d895bb97778b794f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1901262317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1901262314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da83c19487c792b4fbdc08af70ff04f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _settings: {fileID: 1147820452}
+  _openFolder: 1
 --- !u!1 &2102347708
 GameObject:
   m_ObjectHideFlags: 0
