@@ -7,16 +7,13 @@ using UnityEngine.Events;
 namespace UnityEngine.UI.Extensions
 {
 
-    [RequireComponent(typeof(RectTransform)), DisallowMultipleComponent]
-    [AddComponentMenu("UI/Extensions/Re-orderable list")]
+    //[RequireComponent(typeof(RectTransform)), DisallowMultipleComponent]
+    //[AddComponentMenu("UI/Extensions/Re-orderable list")]
     public class ReorderableList : MonoBehaviour
     {
-        [Tooltip("Child container with re-orderable items in a layout group")]
-        public LayoutGroup ContentLayout;
-        [Tooltip("Parent area to draw the dragged element on top of containers. Defaults to the root Canvas")]
-        public RectTransform DraggableArea;
+        public LayoutGroup ContentLayout;//Child container with re-orderable items in a layout group
+        public RectTransform DraggableArea;//Parent area to draw the dragged element on top of containers. Defaults to the root Canvas
         // This sets every item size (when being dragged over this list) to the current size of the first element of this list
-
         [Header("UI Re-orderable Events")]
         public ReorderableListHandler OnElementDropped = new ReorderableListHandler();
         public ReorderableListHandler OnElementGrabbed = new ReorderableListHandler();
@@ -33,7 +30,6 @@ namespace UnityEngine.UI.Extensions
 
         public RectTransform Content
         {
-
             get
             {
                 if (_content == null)
@@ -49,8 +45,6 @@ namespace UnityEngine.UI.Extensions
         /// </summary>
         public void Refresh()
         {
-            //++++++++++++++
-            //Debug.Log("<color=green>Refresh()!</color>");
             Destroy(_listContent);
             _listContent = ContentLayout.gameObject.AddComponent<ReorderableListContent>();
             _listContent.Init(this);
@@ -58,8 +52,6 @@ namespace UnityEngine.UI.Extensions
 
         private void Start()
         {
-            //++++++++++++++
-            //Debug.Log("<color=green>Start()!</color>");
             if (ContentLayout == null)
             {
                 Debug.LogError("You need to have a child LayoutGroup content set for the list: " + name, gameObject);

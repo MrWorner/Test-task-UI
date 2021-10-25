@@ -12,9 +12,6 @@ namespace UnityEngine.UI.Extensions
     [RequireComponent(typeof(RectTransform), typeof(LayoutElement))]
     public class ReorderableListElement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
-        //[Tooltip("Can this element be dropped in space?")]
-        //public bool isDroppableInSpace = false;
-
 
         private readonly List<RaycastResult> _raycastResults = new List<RaycastResult>();
         private ReorderableList _currentReorderableListRaycasted;
@@ -29,9 +26,6 @@ namespace UnityEngine.UI.Extensions
 
         private int _displacedFromIndex;
         private RectTransform _displacedObject;
-        //private LayoutElement _displacedObjectLE;
-        //private Vector2 _displacedObjectOriginalSize;
-        //private ReorderableList _displacedObjectOriginList;
 
         private bool _isDragging;
         private RectTransform _rect;
@@ -49,16 +43,6 @@ namespace UnityEngine.UI.Extensions
             if (_reorderableList == null)
                 return;
 
-            //Can't drag, return...
-            //if (!_reorderableList.IsDraggable)// || !this.IsGrabbable
-            //{
-            //    _draggingObject = null;
-            //    return;
-            //}
-
-            //If not CloneDraggedObject just set draggingObject to this gameobject
-            //if (_reorderableList.CloneDraggedObject == false)
-            //{
             _draggingObject = _rect;
             _fromIndex = _rect.GetSiblingIndex();
             _displacedFromIndex = -1;
@@ -79,13 +63,6 @@ namespace UnityEngine.UI.Extensions
                 _draggingObject = null;
                 return;
             }
-            //}
-            //else
-            //{
-            //    //Else Duplicate
-            //    GameObject clone = (GameObject)Instantiate(gameObject);
-            //    _draggingObject = clone.GetComponent<RectTransform>();
-            //}
 
             //Put _dragging object into the dragging area
             _draggingObjectOriginalSize = gameObject.GetComponent<RectTransform>().rect.size;
@@ -161,10 +138,6 @@ namespace UnityEngine.UI.Extensions
             //If nothing found or the list is not dropable, put the fake element outside
             if (
                 _currentReorderableListRaycasted == null
-                //|| ((_fakeElement.parent == _currentReorderableListRaycasted.Content
-                //    ? _currentReorderableListRaycasted.Content.childCount - 1
-                //    : _currentReorderableListRaycasted.Content.childCount) >= _currentReorderableListRaycasted.maxItems)// && !_currentReorderableListRaycasted.IsDisplacable
-                //|| _currentReorderableListRaycasted.maxItems <= 0
                 )
             {
                 RefreshSizes();
@@ -283,28 +256,10 @@ namespace UnityEngine.UI.Extensions
                     if (!isValid)
                         throw new Exception("It's too late to cancel the Transfer! Do so in OnElementDropped!");
                 }
-
                 else
-                {
-                    //We don't have an ReorderableList
-                    //if (this.isDroppableInSpace)
-                    //{
-                    //    _reorderableList.OnElementDropped.Invoke(new ReorderableList.ReorderableListEventStruct
-                    //        {
-                    //            DroppedObject = _draggingObject.gameObject,
-                    //            IsAClone = _reorderableList.CloneDraggedObject,
-                    //            SourceObject =
-                    //                _reorderableList.CloneDraggedObject ? gameObject : _draggingObject.gameObject,
-                    //            FromList = _reorderableList,
-                    //            FromIndex = _fromIndex
-                    //        });
-                    //}
-                    //else
-                    //{
-
+                {       
                     CancelDrag();
-                    //}
-
+   
                     //If there is no more room for the element in the target list, notify it (OnElementDroppedWithMaxItems event) 
                     if (_currentReorderableListRaycasted != null)
                     {
