@@ -8,27 +8,16 @@ using UnityEngine.Events;
 namespace UnityEngine.UI.Extensions
 {
 
-    //[RequireComponent(typeof(RectTransform)), DisallowMultipleComponent]
-    //[AddComponentMenu("UI/Extensions/Re-orderable list")]
     public class ReorderableList : MonoBehaviour
     {
+        #region Поля
         [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private LayoutGroup _contentLayout;//Child container with re-orderable items in a layout group
         [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private RectTransform _draggableArea;//Parent area to draw the dragged element on top of containers. Defaults to the root Canvas
-        // This sets every item size (when being dragged over this list) to the current size of the first element of this list
-        [Header("UI Re-orderable Events")]
-        public ReorderableListHandler OnElementDropped = new ReorderableListHandler();
-        public ReorderableListHandler OnElementGrabbed = new ReorderableListHandler();
-        public ReorderableListHandler OnElementRemoved = new ReorderableListHandler();
-        public ReorderableListHandler OnElementAdded = new ReorderableListHandler();
-        public ReorderableListHandler OnElementDisplacedFrom = new ReorderableListHandler();
-        public ReorderableListHandler OnElementDisplacedTo = new ReorderableListHandler();
-        public ReorderableListHandler OnElementDisplacedFromReturned = new ReorderableListHandler();
-        public ReorderableListHandler OnElementDisplacedToReturned = new ReorderableListHandler();
-        public ReorderableListHandler OnElementDroppedWithMaxItems = new ReorderableListHandler();
+        [BoxGroup("Тест"), SerializeField, ReadOnly] private RectTransform _content;
+        [BoxGroup("Тест"), SerializeField, ReadOnly] private ReorderableListContent _listContent;
+        #endregion Поля
 
-        private RectTransform _content;
-        private ReorderableListContent _listContent;
-
+        #region Свойства
         public RectTransform Content
         {
             get
@@ -43,6 +32,17 @@ namespace UnityEngine.UI.Extensions
 
         public LayoutGroup ContentLayout { get => _contentLayout; set => _contentLayout = value; }//Child container with re-orderable items in a layout group
         public RectTransform DraggableArea { get => _draggableArea; set => _draggableArea = value; }//Parent area to draw the dragged element on top of containers. Defaults to the root Canvas
+        #endregion Свойства
+
+        #region Свойства (Handlers)
+        public ReorderableListHandler OnElementDropped { get; set; } = new ReorderableListHandler();
+        public ReorderableListHandler OnElementGrabbed { get; set; } = new ReorderableListHandler();
+        public ReorderableListHandler OnElementRemoved { get; set; } = new ReorderableListHandler();
+        public ReorderableListHandler OnElementAdded { get; set; } = new ReorderableListHandler();
+        public ReorderableListHandler OnElementDroppedWithMaxItems { get; set; } = new ReorderableListHandler();
+        #endregion Свойства (Handlers)
+
+
 
         /// <summary>
         /// Refresh related list content
@@ -78,7 +78,7 @@ namespace UnityEngine.UI.Extensions
         #region Nested type: ReorderableListEventStruct
 
         [Serializable]
-        public struct ReorderableListEventStruct
+        public struct MG_ListItem
         {
             public GameObject DroppedObject;
             public int FromIndex;
@@ -101,7 +101,7 @@ namespace UnityEngine.UI.Extensions
         #region Nested type: ReorderableListHandler
 
         [Serializable]
-        public class ReorderableListHandler : UnityEvent<ReorderableListEventStruct>
+        public class ReorderableListHandler : UnityEvent<MG_ListItem>
         {
         }
 

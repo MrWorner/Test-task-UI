@@ -49,7 +49,7 @@ namespace UnityEngine.UI.Extensions
             //Send OnElementRemoved Event
             if (_reorderableList.OnElementRemoved != null)
             {
-                _reorderableList.OnElementRemoved.Invoke(new ReorderableList.ReorderableListEventStruct
+                _reorderableList.OnElementRemoved.Invoke(new ReorderableList.MG_ListItem
                 {
                     DroppedObject = _draggingObject.gameObject,
                     IsAClone = false,
@@ -80,7 +80,7 @@ namespace UnityEngine.UI.Extensions
             //Send OnElementGrabbed Event
             if (_reorderableList.OnElementGrabbed != null)
             {
-                _reorderableList.OnElementGrabbed.Invoke(new ReorderableList.ReorderableListEventStruct
+                _reorderableList.OnElementGrabbed.Invoke(new ReorderableList.MG_ListItem
                 {
                     DroppedObject = _draggingObject.gameObject,
                     IsAClone = false,
@@ -215,7 +215,7 @@ namespace UnityEngine.UI.Extensions
                 //Put the dragged object into the content and at the right index
                 if (_currentReorderableListRaycasted != null && _fakeElement.parent == _currentReorderableListRaycasted.Content)
                 {
-                    var args = new ReorderableList.ReorderableListEventStruct
+                    var args = new ReorderableList.MG_ListItem
                     {
                         DroppedObject = _draggingObject.gameObject,
                         IsAClone = false,
@@ -266,7 +266,7 @@ namespace UnityEngine.UI.Extensions
 
                         GameObject o = _draggingObject.gameObject;
                         _reorderableList.OnElementDroppedWithMaxItems.Invoke(
-                            new ReorderableList.ReorderableListEventStruct
+                            new ReorderableList.MG_ListItem
                             {
                                 DroppedObject = o,
                                 IsAClone = false,
@@ -333,7 +333,7 @@ namespace UnityEngine.UI.Extensions
             _draggingObject.SetSiblingIndex(_fromIndex);
 
 
-            var args = new ReorderableList.ReorderableListEventStruct
+            var args = new ReorderableList.MG_ListItem
             {
                 DroppedObject = _draggingObject.gameObject,
                 IsAClone = false,
