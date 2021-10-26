@@ -13,8 +13,10 @@ namespace UnityEngine.UI.Extensions
         #region Поля
         [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private LayoutGroup _contentLayout;//Child container with re-orderable items in a layout group
         [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private RectTransform _draggableArea;//Parent area to draw the dragged element on top of containers. Defaults to the root Canvas
+        [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private Text _countText;
         [BoxGroup("Тест"), SerializeField, ReadOnly] private RectTransform _content;
         [BoxGroup("Тест"), SerializeField, ReadOnly] private ReorderableListContent _listContent;
+        [BoxGroup("Тест"), SerializeField, ReadOnly] private int _count;
         #endregion Поля
 
         #region Свойства
@@ -35,23 +37,19 @@ namespace UnityEngine.UI.Extensions
         #endregion Свойства
 
         #region Свойства (Handlers)
-        public ReorderableListHandler OnElementDropped { get; set; } = new ReorderableListHandler();
-        public ReorderableListHandler OnElementGrabbed { get; set; } = new ReorderableListHandler();
-        public ReorderableListHandler OnElementRemoved { get; set; } = new ReorderableListHandler();
-        public ReorderableListHandler OnElementAdded { get; set; } = new ReorderableListHandler();
-        public ReorderableListHandler OnElementDroppedWithMaxItems { get; set; } = new ReorderableListHandler();
+        public ReorderableListHandler OnElementDropped { get; } = new ReorderableListHandler();
+        public ReorderableListHandler OnElementGrabbed { get; } = new ReorderableListHandler();
+        public ReorderableListHandler OnElementRemoved { get; } = new ReorderableListHandler();
+        public ReorderableListHandler OnElementAdded { get; } = new ReorderableListHandler();
+        public ReorderableListHandler OnElementDroppedWithMaxItems { get; } = new ReorderableListHandler();
         #endregion Свойства (Handlers)
 
-
-
-        /// <summary>
-        /// Refresh related list content
-        /// </summary>
-        public void Refresh()
+        #region Методы UNITY
+        private void Awake()
         {
-            Destroy(_listContent);
-            _listContent = ContentLayout.gameObject.AddComponent<ReorderableListContent>();
-            _listContent.Init(this);
+            if (_contentLayout == null) Debug.Log("<color=red>MG_MapGenerator Awake(): '_contentLayout' не прикреплен!</color>");
+            if (_draggableArea == null) Debug.Log("<color=red>MG_MapGenerator Awake(): '_draggableArea' не прикреплен!</color>");
+            if (_countText == null) Debug.Log("<color=red>MG_MapGenerator Awake(): '_countText' не прикреплен!</color>");
         }
 
         private void Start()
@@ -73,13 +71,36 @@ namespace UnityEngine.UI.Extensions
 
             Refresh();
         }
+        #endregion Методы UNITY
 
 
-        #region Nested type: ReorderableListEventStruct
+        #region Публичные методы
+        /// <summary>
+        /// Refresh related list content
+        /// </summary>
+        public void Refresh()
+        {
+            Destroy(_listContent);
+            _listContent = ContentLayout.gameObject.AddComponent<ReorderableListContent>();
+            _listContent.Init(this);
+        }
+        #endregion Публичные методы
 
-       
+        #region Личные методы
 
-        #endregion
+        #endregion Личные Личные
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         #region Nested type: ReorderableListHandler
@@ -88,7 +109,10 @@ namespace UnityEngine.UI.Extensions
         public class ReorderableListHandler : UnityEvent<MG_ListItem>
         {
         }
-
         #endregion
+
+
+
+
     }
 }
