@@ -9,11 +9,11 @@ using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI.Extensions
 {
-
-    [RequireComponent(typeof(RectTransform), typeof(LayoutElement))]
     public class MG_Item : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
         #region Поля
+        [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private Text _text;
+
         [BoxGroup("Debug"), SerializeField, ReadOnly] private readonly List<RaycastResult> _raycastResults = new List<RaycastResult>();
         [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableList _currentReorderableListRaycasted;
 
@@ -34,6 +34,13 @@ namespace UnityEngine.UI.Extensions
         [BoxGroup("Debug"), SerializeField, ReadOnly] private CanvasGroup _canvasGroup;
         [BoxGroup("Debug"), SerializeField, ReadOnly] internal bool isValid;
         #endregion Поля
+
+        #region Методы UNITY
+        void Awake()
+        {          
+             if (_text == null && !IsFake()) Debug.Log("<color=red>MG_Item Awake(): '_text' не прикреплен!</color>");
+        }
+        #endregion Методы UNITY
 
         #region Публичные методы
         public void Init(ReorderableList reorderableList)
