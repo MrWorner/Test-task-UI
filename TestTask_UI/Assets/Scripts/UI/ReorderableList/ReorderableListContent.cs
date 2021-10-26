@@ -42,9 +42,13 @@ namespace UnityEngine.UI.Extensions
         {
             _extList = extList;
             _rect = GetComponent<RectTransform>();
+            Refresh();
+        }
+
+        public void Refresh()
+        {            
             _cachedChildren = new List<Transform>();
             _cachedListElement = new List<MG_Item>();
-
             StartCoroutine(RefreshChildren());
         }
 
