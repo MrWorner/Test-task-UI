@@ -19,7 +19,7 @@ namespace UnityEngine.UI.Extensions
         [BoxGroup("ID"), SerializeField] private int _id = -1;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private List<Transform> _cachedChildren;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private List<MG_Item> _cachedListElement;
-        [BoxGroup("Debug"), SerializeField, ReadOnly] private MG_Item _listElement;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private MG_Item _item;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableList _extList;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _rect;
         #endregion Поля
@@ -31,7 +31,7 @@ namespace UnityEngine.UI.Extensions
         #region Методы UNITY
         void Awake()
         {
-            CheckID(this);            
+            CheckID(this);
         }
         private void OnEnable()
         {
@@ -56,7 +56,7 @@ namespace UnityEngine.UI.Extensions
         }
 
         public void Refresh()
-        {            
+        {
             _cachedChildren = new List<Transform>();
             _cachedListElement = new List<MG_Item>();
             StartCoroutine(RefreshChildren());
@@ -121,9 +121,14 @@ namespace UnityEngine.UI.Extensions
             {
                 foreach (var item in _cachedListElement)
                 {
-                    Destroy(item.gameObject);
+                    if (item != null)
+                        Destroy(item.gameObject);
                 }
             }
+            _cachedChildren.Clear();
+            _cachedListElement.Clear();
+            _extList.Reset();
+   
         }
 
 
@@ -134,7 +139,7 @@ namespace UnityEngine.UI.Extensions
         #endregion Публичные методы
 
         #region Личные методы
- 
+
         private static void CheckID(ReorderableListContent list)
         {
             int id = list._id;
@@ -159,12 +164,12 @@ namespace UnityEngine.UI.Extensions
                     continue;
 
                 //Get or Create MG_Item
-                _listElement = _rect.GetChild(i).gameObject.GetComponent<MG_Item>() ??
+                _item = _rect.GetChild(i).gameObject.GetComponent<MG_Item>() ??
                        _rect.GetChild(i).gameObject.AddComponent<MG_Item>();
-                _listElement.Init(_extList);
+                _item.Init(_extList);
 
                 _cachedChildren.Add(_rect.GetChild(i));
-                _cachedListElement.Add(_listElement);
+                _cachedListElement.Add(_item);
             }
 
             //HACK a little hack, if I don't wait one frame I don't have the right deleted children

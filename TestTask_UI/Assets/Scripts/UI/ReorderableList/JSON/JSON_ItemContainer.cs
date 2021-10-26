@@ -8,11 +8,27 @@ using UnityEngine.UI.Extensions;
 [Serializable]
 public class JSON_ItemContainer
 {
+    private static JSON_ItemContainer _instance;
+
     #region Поля
     public List<JSON_Item> _items = new List<JSON_Item>();
     #endregion Поля
 
+    #region Публичные методы Static
+    public static IReadOnlyList<JSON_Item> GetJSON_Items()
+    {
+        return _instance._items;
+    }
+    #endregion Публичные методы Static
+
     #region Публичные методы
+
+    public JSON_ItemContainer()
+    {
+        _instance = this;
+    } 
+
+
     public void Process(IReadOnlyList<MG_Item> items, int listID)
     {
         if (items.Any())
@@ -36,5 +52,4 @@ public class JSON_ItemContainer
         _items.Add(json_item);
     }
     #endregion Личные Личные
-
 }

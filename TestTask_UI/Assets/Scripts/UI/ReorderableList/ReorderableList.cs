@@ -91,6 +91,11 @@ namespace UnityEngine.UI.Extensions
             _count = _listContent.CountItems();
             SetCountText(_count);
         }
+
+        public void Reset()
+        {
+            SetCountText(0);
+        }
         #endregion Публичные методы
 
         #region Личные методы
