@@ -40,7 +40,7 @@ namespace UnityEngine.UI.Extensions
         public ReorderableListHandler OnElementDropped { get; } = new ReorderableListHandler();
         public ReorderableListHandler OnElementGrabbed { get; } = new ReorderableListHandler();
         public ReorderableListHandler OnElementRemoved { get; } = new ReorderableListHandler();
-        public ReorderableListHandler OnElementAdded { get; } = new ReorderableListHandler();
+        public ReorderableListHandler OnElementAdded { get; set; } = new ReorderableListHandler();
         public ReorderableListHandler OnElementDroppedWithMaxItems { get; } = new ReorderableListHandler();
         #endregion Свойства (Handlers)
 
@@ -50,6 +50,9 @@ namespace UnityEngine.UI.Extensions
             if (_contentLayout == null) Debug.Log("<color=red>MG_MapGenerator Awake(): '_contentLayout' не прикреплен!</color>");
             if (_draggableArea == null) Debug.Log("<color=red>MG_MapGenerator Awake(): '_draggableArea' не прикреплен!</color>");
             if (_countText == null) Debug.Log("<color=red>MG_MapGenerator Awake(): '_countText' не прикреплен!</color>");
+
+            OnElementAdded.AddListener(CountUp);
+            OnElementRemoved.AddListener(CountDown);
         }
 
         private void Start()
@@ -87,7 +90,15 @@ namespace UnityEngine.UI.Extensions
         #endregion Публичные методы
 
         #region Личные методы
+        private void CountUp(MG_ListItem args)
+        {
+            _count++;
+        }
 
+        private void CountDown(MG_ListItem args)
+        {
+            _count--;
+        }
         #endregion Личные Личные
 
 
