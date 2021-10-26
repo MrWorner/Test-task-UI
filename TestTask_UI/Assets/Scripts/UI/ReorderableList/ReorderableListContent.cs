@@ -16,6 +16,19 @@ namespace UnityEngine.UI.Extensions
         [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableList _extList;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _rect;
 
+        [Button]
+        public void RemoveAllItems()
+        {
+            if (_cachedListElement.Any())
+            {
+                foreach (var item in _cachedListElement)
+                {
+                    Destroy(item.gameObject);
+                }
+            }
+        }
+
+
         private void OnEnable()
         {
             if (_rect) StartCoroutine(RefreshChildren());
