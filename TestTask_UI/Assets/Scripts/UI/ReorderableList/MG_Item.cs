@@ -35,6 +35,11 @@ namespace UnityEngine.UI.Extensions
         [BoxGroup("Debug"), SerializeField, ReadOnly] internal bool isValid;
         #endregion Поля
 
+        #region Свойства
+        public Text TextLabel { get => _text;  }
+        #endregion Свойства
+
+
         #region Методы UNITY
         void Awake()
         {

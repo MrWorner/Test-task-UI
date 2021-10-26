@@ -12,6 +12,7 @@ public class MG_Load : MonoBehaviour
 
     #region Поля
     [PropertyOrder(-1), BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] MG_Settings _settings;
+    [PropertyOrder(-1), BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] MG_ItemBuilder _itemBuilder;
     #endregion Поля
 
     #region Методы UNITY
@@ -23,6 +24,7 @@ public class MG_Load : MonoBehaviour
             Debug.Log("<color=red>MG_Load Awake(): найден лишний MG_Load!</color>");
 
         if (_settings == null) Debug.Log("<color=red>MG_Load Awake(): '_settings' не задан!</color>");
+        if (_itemBuilder == null) Debug.Log("<color=red>MG_Load Awake(): '_itemBuilder' не задан!</color>");
     }
     #endregion Методы UNITY
 
@@ -41,9 +43,32 @@ public class MG_Load : MonoBehaviour
             }
         }
 
-
         string filePath = _settings.GetFilePath();
         string json = File.ReadAllText(filePath);
         JSON_ItemContainer сontainer = JsonUtility.FromJson<JSON_ItemContainer>(json);
+        List<JSON_Item> jsonList = сontainer._items;
+
+        if (jsonList.Any())
+        {
+            foreach (JSON_Item jsonItem in jsonList)
+            {
+                GameObject newItemObj = _itemBuilder.Build();
+                MG_Item item = newItemObj.GetComponent<MG_Item>();
+                item.TextLabel.text = jsonItem.text;
+                int id = jsonItem.listID;
+
+                if (lists.Any())
+                {
+                    foreach (ReorderableListContent list in lists)
+                    {
+                        if (list.Id == id)
+                        {
+                            newItemObj.transform.SetParent(list.gameObject.transform);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

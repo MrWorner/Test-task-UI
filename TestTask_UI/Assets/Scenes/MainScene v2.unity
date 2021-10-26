@@ -461,7 +461,7 @@ MonoBehaviour:
   - {fileID: 1716676265}
   - {fileID: 433850407}
   - {fileID: 1142775876}
-  _listElement: {fileID: 1142775876}
+  _item: {fileID: 0}
   _extList: {fileID: 1893066121}
   _rect: {fileID: 178427159}
 --- !u!1 &277190037
@@ -1329,6 +1329,50 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &905456535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 905456537}
+  - component: {fileID: 905456536}
+  m_Layer: 0
+  m_Name: ItemBuilder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &905456536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905456535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7315e8bfc8c326e45a0c72cda5bc68bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 6746149801712174903, guid: 8479594de9419b04fa1069ed6016d636, type: 3}
+--- !u!4 &905456537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905456535}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 614.1356, y: 486.06332, z: -102.290764}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1036076371
 GameObject:
   m_ObjectHideFlags: 0
@@ -1728,7 +1772,7 @@ MonoBehaviour:
   - {fileID: 1716676265}
   - {fileID: 433850407}
   - {fileID: 1142775876}
-  _listElement: {fileID: 1142775876}
+  _item: {fileID: 0}
   _extList: {fileID: 1893066121}
   _rect: {fileID: 178427159}
 --- !u!1001 &1277105380
@@ -2815,6 +2859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings: {fileID: 1147820452}
+  _itemBuilder: {fileID: 905456536}
 --- !u!114 &1901262317
 MonoBehaviour:
   m_ObjectHideFlags: 0
