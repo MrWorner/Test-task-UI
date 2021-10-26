@@ -37,11 +37,11 @@ namespace UnityEngine.UI.Extensions
         #endregion Свойства
 
         #region Свойства (Handlers)
-        public ReorderableListHandler OnElementDropped { get; } = new ReorderableListHandler();
-        public ReorderableListHandler OnElementGrabbed { get; } = new ReorderableListHandler();
-        public ReorderableListHandler OnElementRemoved { get; } = new ReorderableListHandler();
-        public ReorderableListHandler OnElementAdded { get; set; } = new ReorderableListHandler();
-        public ReorderableListHandler OnElementDroppedWithMaxItems { get; } = new ReorderableListHandler();
+        public MG_ListHandler OnElementDropped { get; } = new MG_ListHandler();
+        public MG_ListHandler OnElementGrabbed { get; } = new MG_ListHandler();
+        public MG_ListHandler OnElementRemoved { get; } = new MG_ListHandler();
+        public MG_ListHandler OnElementAdded { get; set; } = new MG_ListHandler();
+        public MG_ListHandler OnElementDroppedWithMaxItems { get; } = new MG_ListHandler();
         #endregion Свойства (Handlers)
 
         #region Методы UNITY
@@ -92,47 +92,11 @@ namespace UnityEngine.UI.Extensions
         #endregion Публичные методы
 
         #region Личные методы
-        //private void CountUp(MG_ItemStruct args)
-        //{
-        //    //_count++;
-        //    //SetCountText(_count);
-        //}
-
-        //private void CountDown(MG_ItemStruct args)
-        //{
-        //   // _count--;
-        //   // SetCountText(_count);
-        //}
-
         private void SetCountText(int count)
         {
             _countText.text = "КОЛ-ВО ЭЛЕМЕНТОВ: " + count;
         }
         #endregion Личные Личные
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        #region Nested type: ReorderableListHandler
-
-        [Serializable]
-        public class ReorderableListHandler : UnityEvent<MG_ItemStruct>
-        {
-        }
-        #endregion
-
-
-
 
     }
 }

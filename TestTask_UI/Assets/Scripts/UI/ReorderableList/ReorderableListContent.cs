@@ -10,36 +10,29 @@ namespace UnityEngine.UI.Extensions
 {
     public class ReorderableListContent : MonoBehaviour
     {
+        #region Поля
+        [BoxGroup("ID"), SerializeField] private int _listID = -1;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private List<Transform> _cachedChildren;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private List<MG_Item> _cachedListElement;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private MG_Item _listElement;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableList _extList;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _rect;
 
-        [Button]
-        public void RemoveAllItems()
+        private static List<ReorderableListContent> _all_lists = new List<ReorderableListContent>();
+        #endregion Поля
+
+        #region Свойства
+        #endregion Свойства
+
+        #region Методы UNITY
+        void Awake()
         {
-            if (_cachedListElement.Any())
-            {
-                foreach (var item in _cachedListElement)
-                {
-                    Destroy(item.gameObject);
-                }
-            }
+            _all_lists.Add(this);
         }
+        #endregion Методы UNITY
 
 
-        private void OnEnable()
-        {
-            if (_rect) StartCoroutine(RefreshChildren());
-        }
-
-
-        public void OnTransformChildrenChanged()
-        {
-            if (this.isActiveAndEnabled) StartCoroutine(RefreshChildren());
-        }
-
+        #region Публичные методы
         public void Init(ReorderableList extList)
         {
             _extList = extList;
@@ -68,7 +61,7 @@ namespace UnityEngine.UI.Extensions
                     if (item.IsFake())
                         continue;
 
-                    result++;                
+                    result++;
                 }
                 return result;
             }
@@ -76,6 +69,31 @@ namespace UnityEngine.UI.Extensions
             {
                 return 0;
             }
+        }
+
+        [Button]
+        public void RemoveAllItems()
+        {
+            if (_cachedListElement.Any())
+            {
+                foreach (var item in _cachedListElement)
+                {
+                    Destroy(item.gameObject);
+                }
+            }
+        }
+
+
+        public void OnTransformChildrenChanged()
+        {
+            if (this.isActiveAndEnabled) StartCoroutine(RefreshChildren());
+        }
+        #endregion Публичные методы
+
+        #region Личные методы
+        private void OnEnable()
+        {
+            if (_rect) StartCoroutine(RefreshChildren());
         }
 
         private IEnumerator RefreshChildren()
@@ -108,5 +126,7 @@ namespace UnityEngine.UI.Extensions
                 }
             }
         }
+        #endregion Личные Личные
+
     }
 }

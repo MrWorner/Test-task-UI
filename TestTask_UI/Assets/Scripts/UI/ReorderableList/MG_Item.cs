@@ -37,8 +37,8 @@ namespace UnityEngine.UI.Extensions
 
         #region Методы UNITY
         void Awake()
-        {          
-             if (_text == null && !IsFake()) Debug.Log("<color=red>MG_Item Awake(): '_text' не прикреплен!</color>");
+        {
+            if (_text == null && !IsFake()) Debug.Log("<color=red>MG_Item Awake(): '_text' не прикреплен!</color>");
         }
         #endregion Методы UNITY
 
@@ -74,6 +74,24 @@ namespace UnityEngine.UI.Extensions
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Получить ID листа
+        /// </summary>
+        /// <returns>ID</returns>
+        public int GetListID()
+        {
+            return -1;//WIP
+        }
+
+        /// <summary>
+        /// Получить текст
+        /// </summary>
+        /// <returns>текст</returns>
+        public string GetText()
+        {
+            return _text.text;
         }
         #endregion Публичные методы
 
