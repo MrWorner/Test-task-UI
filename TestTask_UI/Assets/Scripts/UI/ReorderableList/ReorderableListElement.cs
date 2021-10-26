@@ -13,7 +13,6 @@ namespace UnityEngine.UI.Extensions
     [RequireComponent(typeof(RectTransform), typeof(LayoutElement))]
     public class ReorderableListElement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
-
         [BoxGroup("Debug"), SerializeField, ReadOnly] private readonly List<RaycastResult> _raycastResults = new List<RaycastResult>();
         [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableList _currentReorderableListRaycasted;
 
@@ -33,9 +32,11 @@ namespace UnityEngine.UI.Extensions
         [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableList _reorderableList;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private CanvasGroup _canvasGroup;
         [BoxGroup("Debug"), SerializeField, ReadOnly] internal bool isValid;
-        //public bool isFake = false;
 
-
+        /// <summary>
+        /// Является ли текущий объект фейком
+        /// </summary>
+        /// <returns>фейк</returns>
         public bool IsFake()
         {
             if (name.Equals("Fake"))
@@ -49,9 +50,7 @@ namespace UnityEngine.UI.Extensions
             
         }
 
-
-
-        #region IBeginDragHandler Members
+        #region Методы интерфейса "IBeginDragHandler"
 
         public void OnBeginDrag(PointerEventData eventData)
         {
@@ -120,7 +119,7 @@ namespace UnityEngine.UI.Extensions
 
         #endregion
 
-        #region IDragHandler Members
+        #region Методы интерфейса "IDragHandler"
 
         public void OnDrag(PointerEventData eventData)
         {
@@ -221,7 +220,7 @@ namespace UnityEngine.UI.Extensions
 
         #endregion
 
-        #region IEndDragHandler Members
+        #region Методы интерфейса "IEndDragHandler"
 
         public void OnEndDrag(PointerEventData eventData)
         {
