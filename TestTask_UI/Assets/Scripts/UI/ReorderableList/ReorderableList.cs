@@ -83,8 +83,8 @@ namespace UnityEngine.UI.Extensions
         /// </summary>
         public void Refresh()
         {
-            Destroy(_listContent);
-            _listContent = ContentLayout.gameObject.AddComponent<ReorderableListContent>();
+            //---Destroy(_listContent);
+            _listContent = ContentLayout.gameObject.GetComponent<ReorderableListContent>();
             _listContent.Init(this);
             _count = _listContent.CountItems();
             SetCountText(_count);

@@ -11,14 +11,15 @@ namespace UnityEngine.UI.Extensions
     public class ReorderableListContent : MonoBehaviour
     {
         #region Поля
-        [BoxGroup("ID"), SerializeField] private int _listID = -1;
+        [BoxGroup("ID"), SerializeField] private int _id = -1;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private List<Transform> _cachedChildren;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private List<MG_Item> _cachedListElement;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private MG_Item _listElement;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableList _extList;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _rect;
 
-        private static List<ReorderableListContent> _all_lists = new List<ReorderableListContent>();
+        private static HashSet<int> _all_IDs = new HashSet<int>();
+        private static HashSet<ReorderableListContent> _all_lists = new HashSet<ReorderableListContent>();
         #endregion Поля
 
         #region Свойства
@@ -27,7 +28,11 @@ namespace UnityEngine.UI.Extensions
         #region Методы UNITY
         void Awake()
         {
-            _all_lists.Add(this);
+            CheckID(this);            
+        }
+        private void OnEnable()
+        {
+            if (_rect) StartCoroutine(RefreshChildren());
         }
         #endregion Методы UNITY
 
@@ -91,9 +96,20 @@ namespace UnityEngine.UI.Extensions
         #endregion Публичные методы
 
         #region Личные методы
-        private void OnEnable()
+ 
+        private static void CheckID(ReorderableListContent list)
         {
-            if (_rect) StartCoroutine(RefreshChildren());
+            int id = list._id;
+
+            if (_all_IDs.Contains(id) == false)
+            {
+                _all_IDs.Add(id);
+                _all_lists.Add(list);
+            }
+            else
+            {
+                Debug.Log("<color=red>ReorderableListContent CheckID(): найден дубликат ID!</color> id= " + id);
+            }
         }
 
         private IEnumerator RefreshChildren()
