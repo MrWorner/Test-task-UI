@@ -8,14 +8,12 @@ using UnityEngine.UI.Extensions;
 [Serializable]
 public class JSON_ItemContainer
 {
-
-
     #region Поля
     public List<JSON_Item> _items = new List<JSON_Item>();
     #endregion Поля
 
     #region Публичные методы
-    public JSON_ItemContainer(IReadOnlyList<MG_Item> items, int listID)
+    public void Process(IReadOnlyList<MG_Item> items, int listID)
     {
         if (items.Any())
         {
@@ -25,6 +23,7 @@ public class JSON_ItemContainer
             }
         }
     }
+
     #endregion Публичные методы
 
     #region Личные методы

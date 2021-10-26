@@ -1,7 +1,12 @@
 ﻿using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI.Extensions;
+using Debug = UnityEngine.Debug;
 
 public class MG_Save : MonoBehaviour
 {
@@ -26,25 +31,33 @@ public class MG_Save : MonoBehaviour
     #endregion Методы UNITY
 
     /// <summary>
-    /// Сохранить карту
+    /// Сохранить списки
     /// </summary>
     [Button]
     public void Execute()
     {
-        string dataPath = _settings.GetFilePath();
+        JSON_ItemContainer _container = new JSON_ItemContainer();
+        var lists = ReorderableListContent.GetAllLists();
 
-        //Vector2Int mapSize = _map.Size;
-        //IReadOnlyList<MG_HexCell> cells = _map.GetCells();
-        //JSON_MapContainer _container = new JSON_MapContainer(cells, mapSize);//Обрабатываем информацию и получаем контейнер      
+        if (lists.Any())
+        {
+            foreach (var list in lists)
+            {
+                int id = list.Id;
+                List<MG_Item> listItems = list.GetItems();
+                if (listItems.Any())
+                {
+                    _container.Process(listItems, id);
+                }             
+            }
+        }
 
-        //string json = JsonUtility.ToJson(_container, false);
-        //StreamWriter sw = File.CreateText(dataPath);
-        //sw.Close();
-        //File.WriteAllText(dataPath, json);
-
-        //if (_openFolder) Process.Start(@Application.dataPath);
-        ////countSavedTiles = _container.GetSize();//получить кол-во сохраненных cells
-        ////Debug.Log("MG_SaveMap Save(): SAVED JSON tiles! Total tile count = " + countSavedTiles);
+        string json = JsonUtility.ToJson(_container, false);
+        string filePath = _settings.GetFilePath();
+        StreamWriter sw = File.CreateText(filePath);
+        sw.Close();
+        File.WriteAllText(filePath, json);
+        if (_openFolder) Process.Start(filePath);
     }
 
 }

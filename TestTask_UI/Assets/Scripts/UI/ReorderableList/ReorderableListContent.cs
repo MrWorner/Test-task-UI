@@ -10,6 +10,11 @@ namespace UnityEngine.UI.Extensions
 {
     public class ReorderableListContent : MonoBehaviour
     {
+        #region Поля Static
+        private static HashSet<int> _all_IDs = new HashSet<int>();
+        private static HashSet<ReorderableListContent> _all_lists = new HashSet<ReorderableListContent>();
+        #endregion Поля Static
+
         #region Поля
         [BoxGroup("ID"), SerializeField] private int _id = -1;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private List<Transform> _cachedChildren;
@@ -17,12 +22,10 @@ namespace UnityEngine.UI.Extensions
         [BoxGroup("Debug"), SerializeField, ReadOnly] private MG_Item _listElement;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableList _extList;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _rect;
-
-        private static HashSet<int> _all_IDs = new HashSet<int>();
-        private static HashSet<ReorderableListContent> _all_lists = new HashSet<ReorderableListContent>();
         #endregion Поля
 
         #region Свойства
+        public int Id { get => _id; }
         #endregion Свойства
 
         #region Методы UNITY
@@ -35,6 +38,13 @@ namespace UnityEngine.UI.Extensions
             if (_rect) StartCoroutine(RefreshChildren());
         }
         #endregion Методы UNITY
+
+        #region Публичные методы Static
+        public static IReadOnlyCollection<ReorderableListContent> GetAllLists()
+        {
+            return _all_lists;
+        }
+        #endregion Публичные методы Static
 
 
         #region Публичные методы
@@ -50,6 +60,30 @@ namespace UnityEngine.UI.Extensions
             _cachedChildren = new List<Transform>();
             _cachedListElement = new List<MG_Item>();
             StartCoroutine(RefreshChildren());
+        }
+
+        /// <summary>
+        /// Получить список элементов  
+        /// </summary>
+        /// <returns></returns>
+        public List<MG_Item> GetItems()
+        {
+            List<MG_Item> collection = new List<MG_Item>();
+
+            if (_cachedListElement.Any())
+            {
+                foreach (MG_Item item in _cachedListElement)
+                {
+                    if (item == null)
+                        continue;
+
+                    if (item.IsFake())
+                        continue;
+
+                    collection.Add(item);
+                }
+            }
+            return collection;
         }
 
         /// <summary>

@@ -15,8 +15,7 @@ namespace UnityEngine.UI.Extensions
         [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private RectTransform _draggableArea;//Parent area to draw the dragged element on top of containers. Defaults to the root Canvas
         [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private Text _countText;
         [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private ReorderableListContent _listContent;
-        [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _content;
-        
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _content;  
         [BoxGroup("Debug"), SerializeField, ReadOnly] private int _count;  
         #endregion Поля
 
