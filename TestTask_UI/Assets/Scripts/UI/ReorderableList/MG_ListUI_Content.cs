@@ -20,12 +20,13 @@ namespace UnityEngine.UI.Extensions
         [BoxGroup("Debug"), SerializeField, ReadOnly] private List<Transform> _cachedChildren;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private List<MG_Item> _cachedListElement;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private MG_Item _item;
-        [BoxGroup("Debug"), SerializeField, ReadOnly] private MG_ListUI _extList;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private MG_ListUI _main;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _rect;
         #endregion Поля
 
         #region Свойства
         public int Id { get => _id; }
+        public MG_ListUI Main { get => _main; }
         #endregion Свойства
 
         #region Методы UNITY
@@ -46,11 +47,10 @@ namespace UnityEngine.UI.Extensions
         }
         #endregion Публичные методы Static
 
-
         #region Публичные методы
         public void Init(MG_ListUI extList)
         {
-            _extList = extList;
+            _main = extList;
             _rect = GetComponent<RectTransform>();
             Refresh();
         }
@@ -127,8 +127,8 @@ namespace UnityEngine.UI.Extensions
             }
             _cachedChildren.Clear();
             _cachedListElement.Clear();
-            _extList.Reset();
-   
+            _main.Reset();
+
         }
 
 
@@ -166,7 +166,7 @@ namespace UnityEngine.UI.Extensions
                 //Get or Create MG_Item
                 _item = _rect.GetChild(i).gameObject.GetComponent<MG_Item>() ??
                        _rect.GetChild(i).gameObject.AddComponent<MG_Item>();
-                _item.Init(_extList);
+                _item.Init(_main);
 
                 _cachedChildren.Add(_rect.GetChild(i));
                 _cachedListElement.Add(_item);
@@ -186,6 +186,5 @@ namespace UnityEngine.UI.Extensions
             }
         }
         #endregion Личные Личные
-
     }
 }

@@ -81,9 +81,7 @@ namespace UnityEngine.UI.Extensions
 
 
         #region Публичные методы
-        /// <summary>
-        /// Refresh related list content
-        /// </summary>
+        
         public void Refresh()
         {
             //_listContent = ContentLayout.gameObject.GetComponent<MG_ListUI_Content>();
@@ -96,14 +94,11 @@ namespace UnityEngine.UI.Extensions
         {
             SetCountText(0);
         }
-        #endregion Публичные методы
 
-        #region Личные методы
-        private void SetCountText(int count)
+        public void SetCountText(int count)
         {
             _countText.text = "КОЛ-ВО ЭЛЕМЕНТОВ: " + count;
         }
-        #endregion Личные Личные
-
+        #endregion Публичные методы
     }
 }

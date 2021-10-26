@@ -50,35 +50,50 @@ public class MG_Load : MonoBehaviour
 
         if (jsonList.Any())
         {
-            foreach (JSON_Item jsonItem in jsonList)
-            {
-                GameObject newItemObj = _itemBuilder.Build();
-                MG_Item item = newItemObj.GetComponent<MG_Item>();
-                item.TextLabel.text = jsonItem.text;
-                int id = jsonItem.listID;
+            //foreach (JSON_Item jsonItem in jsonList)
+            //{
+            //    GameObject newItemObj = _itemBuilder.Build();
+            //    MG_Item item = newItemObj.GetComponent<MG_Item>();
+            //    item.TextLabel.text = jsonItem.text;
+            //    int id = jsonItem.listID;
 
-                if (lists.Any())
-                {
-                    foreach (MG_ListUI_Content list in lists)
-                    {
-                        if (list.Id == id)
-                        {
-                            newItemObj.transform.SetParent(list.gameObject.transform);
-                            break;
-                        }
-                    }
-                }
-            }
+            //    if (lists.Any())
+            //    {
+            //        foreach (MG_ListUI_Content list in lists)
+            //        {
+            //            if (list.Id == id)
+            //            {
+            //                newItemObj.transform.SetParent(list.gameObject.transform);
+            //                break;
+            //            }
+            //        }
+            //    }
+            //}
+
 
             if (lists.Any())
             {
-                foreach (var list in lists)
+                foreach (MG_ListUI_Content list in lists)
                 {
-                    list.Refresh();
+                    int count = 0;
+                    foreach (JSON_Item jsonItem in jsonList)
+                    {                    
+                        int id = jsonItem.listID;
+
+                        if (list.Id == id)
+                        {
+                            count++;
+                            GameObject newItemObj = _itemBuilder.Build();
+                            MG_Item item = newItemObj.GetComponent<MG_Item>();
+                            item.TextLabel.text = jsonItem.text;
+                            newItemObj.transform.SetParent(list.gameObject.transform);
+                        }
+                    }
+
+                    list.Main.SetCountText(count);
                 }
             }
+
         }
-
-
     }
 }
