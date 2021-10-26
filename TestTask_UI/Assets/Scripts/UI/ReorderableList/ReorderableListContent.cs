@@ -1,28 +1,30 @@
 ﻿/// Credit Ziboo
 /// Sourced from - http://forum.unity3d.com/threads/free-reorderable-list.364600/
 
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UnityEngine.UI.Extensions
 {
     public class ReorderableListContent : MonoBehaviour
     {
-        private List<Transform> _cachedChildren;
-        private List<ReorderableListElement> _cachedListElement;
-        private ReorderableListElement _ele;
-        private ReorderableList _extList;
-        private RectTransform _rect;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private List<Transform> _cachedChildren;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private List<ReorderableListElement> _cachedListElement;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableListElement _listElement;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableList _extList;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _rect;
 
         private void OnEnable()
         {
-            if (_rect)StartCoroutine(RefreshChildren());
+            if (_rect) StartCoroutine(RefreshChildren());
         }
 
 
         public void OnTransformChildrenChanged()
         {
-            if(this.isActiveAndEnabled)StartCoroutine(RefreshChildren());
+            if (this.isActiveAndEnabled) StartCoroutine(RefreshChildren());
         }
 
         public void Init(ReorderableList extList)
@@ -35,10 +37,36 @@ namespace UnityEngine.UI.Extensions
             StartCoroutine(RefreshChildren());
         }
 
+        /// <summary>
+        /// Получить кол-во элементов в листе
+        /// </summary>
+        /// <returns>кол-во элементов в листе</returns>
+        [Button]
+        public int CountItems()
+        {
+            if (_cachedListElement.Any())
+            {
+                int result = 0;
+                foreach (ReorderableListElement item in _cachedListElement)
+                {
+                    if (item == null)
+                        continue;
+
+                    if (item.IsFake())
+                        continue;
+
+                    result++;                
+                }
+                return result;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         private IEnumerator RefreshChildren()
         {
-            //+++++++++++
-            //Debug.Log("<color=green>RefreshChildren()!</color>");
             //Handle new children
             for (int i = 0; i < _rect.childCount; i++)
             {
@@ -46,12 +74,12 @@ namespace UnityEngine.UI.Extensions
                     continue;
 
                 //Get or Create ReorderableListElement
-                _ele = _rect.GetChild(i).gameObject.GetComponent<ReorderableListElement>() ??
+                _listElement = _rect.GetChild(i).gameObject.GetComponent<ReorderableListElement>() ??
                        _rect.GetChild(i).gameObject.AddComponent<ReorderableListElement>();
-                _ele.Init(_extList);
+                _listElement.Init(_extList);
 
                 _cachedChildren.Add(_rect.GetChild(i));
-                _cachedListElement.Add(_ele);
+                _cachedListElement.Add(_listElement);
             }
 
             //HACK a little hack, if I don't wait one frame I don't have the right deleted children

@@ -2,6 +2,7 @@
 /// Sourced from - http://forum.unity3d.com/threads/free-reorderable-list.364600/
 /// Last Child Fix - https://bitbucket.org/SimonDarksideJ/unity-ui-extensions/issues/70/all-re-orderable-lists-cause-a-transform
 
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
@@ -13,25 +14,41 @@ namespace UnityEngine.UI.Extensions
     public class ReorderableListElement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
 
-        private readonly List<RaycastResult> _raycastResults = new List<RaycastResult>();
-        private ReorderableList _currentReorderableListRaycasted;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private readonly List<RaycastResult> _raycastResults = new List<RaycastResult>();
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableList _currentReorderableListRaycasted;
 
-        private int _fromIndex;
-        private RectTransform _draggingObject;
-        private LayoutElement _draggingObjectLE;
-        private Vector2 _draggingObjectOriginalSize;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private int _fromIndex;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _draggingObject;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private LayoutElement _draggingObjectLE;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private Vector2 _draggingObjectOriginalSize;
 
-        private RectTransform _fakeElement;
-        private LayoutElement _fakeElementLE;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _fakeElement;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private LayoutElement _fakeElementLE;
 
-        private int _displacedFromIndex;
-        private RectTransform _displacedObject;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private int _displacedFromIndex;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _displacedObject;
 
-        private bool _isDragging;
-        private RectTransform _rect;
-        private ReorderableList _reorderableList;
-        private CanvasGroup _canvasGroup;
-        internal bool isValid;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private bool _isDragging;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _rect;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableList _reorderableList;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private CanvasGroup _canvasGroup;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] internal bool isValid;
+        //public bool isFake = false;
+
+
+        public bool IsFake()
+        {
+            if (name.Equals("Fake"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
+
 
 
         #region IBeginDragHandler Members
@@ -74,6 +91,7 @@ namespace UnityEngine.UI.Extensions
             //Create a fake element for previewing placement
             _fakeElement = new GameObject("Fake").AddComponent<RectTransform>();
             _fakeElementLE = _fakeElement.gameObject.AddComponent<LayoutElement>();
+
 
             RefreshSizes();
 
@@ -213,8 +231,6 @@ namespace UnityEngine.UI.Extensions
             {
                 //If we have a ReorderableList that is dropable
                 //Put the dragged object into the content and at the right index
-                //if (_currentReorderableListRaycasted != null && _fakeElement.parent == _currentReorderableListRaycasted.Content)
-                //{
                 var args = new MG_ListItem
                 {
                     DroppedObject = _draggingObject.gameObject,
@@ -244,34 +260,6 @@ namespace UnityEngine.UI.Extensions
                 _currentReorderableListRaycasted.Refresh();
 
                 _reorderableList.OnElementAdded.Invoke(args);
-
-                //if (!isValid)
-                //    throw new Exception("It's too late to cancel the Transfer! Do so in OnElementDropped!");
-                //}
-                //else
-                //{
-                //    Debug.Log("Aaaaaaaaaaaaaa");
-                //    CancelDrag();
-
-                //    //If there is no more room for the element in the target list, notify it (OnElementDroppedWithMaxItems event) 
-                //    if (_currentReorderableListRaycasted != null)
-                //    {
-
-                //        GameObject o = _draggingObject.gameObject;
-                //        _reorderableList.OnElementDroppedWithMaxItems.Invoke(
-                //            new MG_ListItem
-                //            {
-                //                DroppedObject = o,
-                //                IsAClone = false,
-                //                SourceObject = o,
-                //                FromList = _reorderableList,
-                //                ToList = _currentReorderableListRaycasted,
-                //                FromIndex = _fromIndex
-                //            });
-
-                //    }
-
-                //}
             }
 
             //Delete fake element

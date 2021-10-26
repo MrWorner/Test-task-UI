@@ -14,9 +14,9 @@ namespace UnityEngine.UI.Extensions
         [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private LayoutGroup _contentLayout;//Child container with re-orderable items in a layout group
         [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private RectTransform _draggableArea;//Parent area to draw the dragged element on top of containers. Defaults to the root Canvas
         [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private Text _countText;
-        [BoxGroup("Тест"), SerializeField, ReadOnly] private RectTransform _content;
-        [BoxGroup("Тест"), SerializeField, ReadOnly] private ReorderableListContent _listContent;
-        [BoxGroup("Тест"), SerializeField, ReadOnly] private int _count;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _content;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableListContent _listContent;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private int _count;  
         #endregion Поля
 
         #region Свойства
@@ -51,8 +51,8 @@ namespace UnityEngine.UI.Extensions
             if (_draggableArea == null) Debug.Log("<color=red>MG_MapGenerator Awake(): '_draggableArea' не прикреплен!</color>");
             if (_countText == null) Debug.Log("<color=red>MG_MapGenerator Awake(): '_countText' не прикреплен!</color>");
 
-            OnElementAdded.AddListener(CountUp);
-            OnElementRemoved.AddListener(CountDown);
+            //OnElementAdded.AddListener(CountUp);
+            //OnElementRemoved.AddListener(CountDown);
         }
 
         private void Start()
@@ -86,18 +86,27 @@ namespace UnityEngine.UI.Extensions
             Destroy(_listContent);
             _listContent = ContentLayout.gameObject.AddComponent<ReorderableListContent>();
             _listContent.Init(this);
+            _count = _listContent.CountItems();
+            SetCountText(_count);
         }
         #endregion Публичные методы
 
         #region Личные методы
-        private void CountUp(MG_ListItem args)
-        {
-            _count++;
-        }
+        //private void CountUp(MG_ListItem args)
+        //{
+        //    //_count++;
+        //    //SetCountText(_count);
+        //}
 
-        private void CountDown(MG_ListItem args)
+        //private void CountDown(MG_ListItem args)
+        //{
+        //   // _count--;
+        //   // SetCountText(_count);
+        //}
+
+        private void SetCountText(int count)
         {
-            _count--;
+            _countText.text = "КОЛ-ВО ЭЛЕМЕНТОВ: " + count;
         }
         #endregion Личные Личные
 
