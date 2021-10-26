@@ -9,11 +9,11 @@ namespace UnityEngine.UI.Extensions
     {
         public GameObject DroppedObject;
         public int FromIndex;
-        public ReorderableList FromList;
+        public MG_ListUI FromList;
         public bool IsAClone;
         public GameObject SourceObject;
         public int ToIndex;
-        public ReorderableList ToList;
+        public MG_ListUI ToList;
 
     }
 }

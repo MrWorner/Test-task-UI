@@ -15,7 +15,7 @@ namespace UnityEngine.UI.Extensions
         [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private Text _text;
 
         [BoxGroup("Debug"), SerializeField, ReadOnly] private readonly List<RaycastResult> _raycastResults = new List<RaycastResult>();
-        [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableList _currentReorderableListRaycasted;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private MG_ListUI _currentReorderableListRaycasted;
 
         [BoxGroup("Debug"), SerializeField, ReadOnly] private int _fromIndex;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _draggingObject;
@@ -30,7 +30,7 @@ namespace UnityEngine.UI.Extensions
 
         [BoxGroup("Debug"), SerializeField, ReadOnly] private bool _isDragging;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _rect;
-        [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableList _reorderableList;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private MG_ListUI _reorderableList;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private CanvasGroup _canvasGroup;
         [BoxGroup("Debug"), SerializeField, ReadOnly] internal bool isValid;
         #endregion Поля
@@ -48,7 +48,7 @@ namespace UnityEngine.UI.Extensions
         #endregion Методы UNITY
 
         #region Публичные методы
-        public void Init(ReorderableList reorderableList)
+        public void Init(MG_ListUI reorderableList)
         {
             _reorderableList = reorderableList;
             _rect = GetComponent<RectTransform>();
@@ -189,13 +189,13 @@ namespace UnityEngine.UI.Extensions
                 canvas.renderMode != RenderMode.ScreenSpaceOverlay ? canvas.worldCamera : null, out worldPoint);
             _draggingObject.position = worldPoint;
 
-            ReorderableList _oldReorderableListRaycasted = _currentReorderableListRaycasted;
+            MG_ListUI _oldReorderableListRaycasted = _currentReorderableListRaycasted;
 
-            //Check everything under the cursor to find a ReorderableList
+            //Check everything under the cursor to find a MG_ListUI
             EventSystem.current.RaycastAll(eventData, _raycastResults);
             for (int i = 0; i < _raycastResults.Count; i++)
             {
-                _currentReorderableListRaycasted = _raycastResults[i].gameObject.GetComponent<ReorderableList>();
+                _currentReorderableListRaycasted = _raycastResults[i].gameObject.GetComponent<MG_ListUI>();
                 if (_currentReorderableListRaycasted != null)
                 {
                     break;
@@ -279,7 +279,7 @@ namespace UnityEngine.UI.Extensions
 
             if (_draggingObject != null)
             {
-                //If we have a ReorderableList that is dropable
+                //If we have a MG_ListUI that is dropable
                 //Put the dragged object into the content and at the right index
                 var args = new MG_ItemStruct
                 {

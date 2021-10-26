@@ -34,7 +34,7 @@ public class MG_Load : MonoBehaviour
     [Button]
     public void Execute()
     {
-        var lists = ReorderableListContent.GetAllLists();
+        var lists = MG_ListUI_Content.GetAllLists();
         if (lists.Any())
         {
             foreach (var list in lists)
@@ -59,7 +59,7 @@ public class MG_Load : MonoBehaviour
 
                 if (lists.Any())
                 {
-                    foreach (ReorderableListContent list in lists)
+                    foreach (MG_ListUI_Content list in lists)
                     {
                         if (list.Id == id)
                         {
@@ -69,6 +69,16 @@ public class MG_Load : MonoBehaviour
                     }
                 }
             }
+
+            if (lists.Any())
+            {
+                foreach (var list in lists)
+                {
+                    list.Refresh();
+                }
+            }
         }
+
+
     }
 }

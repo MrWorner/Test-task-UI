@@ -8,11 +8,11 @@ using System.Linq;
 
 namespace UnityEngine.UI.Extensions
 {
-    public class ReorderableListContent : MonoBehaviour
+    public class MG_ListUI_Content : MonoBehaviour
     {
         #region Поля Static
         private static HashSet<int> _all_IDs = new HashSet<int>();
-        private static HashSet<ReorderableListContent> _all_lists = new HashSet<ReorderableListContent>();
+        private static HashSet<MG_ListUI_Content> _all_lists = new HashSet<MG_ListUI_Content>();
         #endregion Поля Static
 
         #region Поля
@@ -20,7 +20,7 @@ namespace UnityEngine.UI.Extensions
         [BoxGroup("Debug"), SerializeField, ReadOnly] private List<Transform> _cachedChildren;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private List<MG_Item> _cachedListElement;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private MG_Item _item;
-        [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableList _extList;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private MG_ListUI _extList;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _rect;
         #endregion Поля
 
@@ -40,7 +40,7 @@ namespace UnityEngine.UI.Extensions
         #endregion Методы UNITY
 
         #region Публичные методы Static
-        public static IReadOnlyCollection<ReorderableListContent> GetAllLists()
+        public static IReadOnlyCollection<MG_ListUI_Content> GetAllLists()
         {
             return _all_lists;
         }
@@ -48,7 +48,7 @@ namespace UnityEngine.UI.Extensions
 
 
         #region Публичные методы
-        public void Init(ReorderableList extList)
+        public void Init(MG_ListUI extList)
         {
             _extList = extList;
             _rect = GetComponent<RectTransform>();
@@ -140,7 +140,7 @@ namespace UnityEngine.UI.Extensions
 
         #region Личные методы
 
-        private static void CheckID(ReorderableListContent list)
+        private static void CheckID(MG_ListUI_Content list)
         {
             int id = list._id;
 
@@ -151,7 +151,7 @@ namespace UnityEngine.UI.Extensions
             }
             else
             {
-                Debug.Log("<color=red>ReorderableListContent CheckID(): найден дубликат ID!</color> id= " + id);
+                Debug.Log("<color=red>MG_ListUI_Content CheckID(): найден дубликат ID!</color> id= " + id);
             }
         }
 

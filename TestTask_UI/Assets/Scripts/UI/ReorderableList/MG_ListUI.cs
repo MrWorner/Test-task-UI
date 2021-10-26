@@ -8,13 +8,13 @@ using UnityEngine.Events;
 namespace UnityEngine.UI.Extensions
 {
 
-    public class ReorderableList : MonoBehaviour
+    public class MG_ListUI : MonoBehaviour
     {
         #region Поля
         [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private LayoutGroup _contentLayout;//Child container with re-orderable items in a layout group
         [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private RectTransform _draggableArea;//Parent area to draw the dragged element on top of containers. Defaults to the root Canvas
         [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private Text _countText;
-        [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private ReorderableListContent _listContent;
+        [BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] private MG_ListUI_Content _listContent;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _content;  
         [BoxGroup("Debug"), SerializeField, ReadOnly] private int _count;  
         #endregion Поля
@@ -86,7 +86,7 @@ namespace UnityEngine.UI.Extensions
         /// </summary>
         public void Refresh()
         {
-            //_listContent = ContentLayout.gameObject.GetComponent<ReorderableListContent>();
+            //_listContent = ContentLayout.gameObject.GetComponent<MG_ListUI_Content>();
             _listContent.Refresh();
             _count = _listContent.CountItems();
             SetCountText(_count);
