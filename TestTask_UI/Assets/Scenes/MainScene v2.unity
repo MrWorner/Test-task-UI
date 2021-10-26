@@ -412,7 +412,7 @@ GameObject:
   - component: {fileID: 434405612}
   - component: {fileID: 434405611}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI (Canvas)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -588,7 +588,7 @@ GameObject:
   - component: {fileID: 853621235}
   - component: {fileID: 853621236}
   m_Layer: 5
-  m_Name: Main Window
+  m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
