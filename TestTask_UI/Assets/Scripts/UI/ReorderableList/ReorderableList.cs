@@ -77,23 +77,7 @@ namespace UnityEngine.UI.Extensions
 
         #region Nested type: ReorderableListEventStruct
 
-        [Serializable]
-        public struct MG_ListItem
-        {
-            public GameObject DroppedObject;
-            public int FromIndex;
-            public ReorderableList FromList;
-            public bool IsAClone;
-            public GameObject SourceObject;
-            public int ToIndex;
-            public ReorderableList ToList;
-
-            public void Cancel()
-            {
-                Debug.Log("<color=green>Cancel()!</color>");
-                SourceObject.GetComponent<ReorderableListElement>().isValid = false;
-            }
-        }
+       
 
         #endregion
 
