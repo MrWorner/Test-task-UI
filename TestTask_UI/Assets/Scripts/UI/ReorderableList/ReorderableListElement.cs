@@ -13,6 +13,7 @@ namespace UnityEngine.UI.Extensions
     [RequireComponent(typeof(RectTransform), typeof(LayoutElement))]
     public class ReorderableListElement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
+        #region Поля
         [BoxGroup("Debug"), SerializeField, ReadOnly] private readonly List<RaycastResult> _raycastResults = new List<RaycastResult>();
         [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableList _currentReorderableListRaycasted;
 
@@ -32,6 +33,15 @@ namespace UnityEngine.UI.Extensions
         [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableList _reorderableList;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private CanvasGroup _canvasGroup;
         [BoxGroup("Debug"), SerializeField, ReadOnly] internal bool isValid;
+        #endregion Поля
+
+        #region Публичные методы
+        public void Init(ReorderableList reorderableList)
+        {
+            _reorderableList = reorderableList;
+            _rect = GetComponent<RectTransform>();
+            _canvasGroup = gameObject.GetOrAddComponent<CanvasGroup>();
+        }
 
         /// <summary>
         /// Является ли текущий объект фейком
@@ -39,6 +49,16 @@ namespace UnityEngine.UI.Extensions
         /// <returns>фейк</returns>
         public bool IsFake()
         {
+
+            //if (_fakeElement != null)
+            //{
+            //    if (_fakeElement.gameObject.Equals(this.gameObject))
+            //    {
+            //        return true;
+            //    }
+            //}
+            //return false;
+
             if (name.Equals("Fake"))
             {
                 return true;
@@ -47,8 +67,8 @@ namespace UnityEngine.UI.Extensions
             {
                 return false;
             }
-            
         }
+        #endregion Публичные методы
 
         #region Методы интерфейса "IBeginDragHandler"
 
@@ -272,6 +292,7 @@ namespace UnityEngine.UI.Extensions
 
         #endregion
 
+        #region Личные методы
         private void RefreshSizes()
         {
             Vector2 size = _draggingObjectOriginalSize;
@@ -294,7 +315,7 @@ namespace UnityEngine.UI.Extensions
 
         }
 
-        void CancelDrag()
+        private void CancelDrag()
         {
             _isDragging = false;
 
@@ -327,12 +348,7 @@ namespace UnityEngine.UI.Extensions
             }
             _canvasGroup.blocksRaycasts = true;
         }
+        #endregion Личные Личные
 
-        public void Init(ReorderableList reorderableList)
-        {
-            _reorderableList = reorderableList;
-            _rect = GetComponent<RectTransform>();
-            _canvasGroup = gameObject.GetOrAddComponent<CanvasGroup>();
-        }
     }
 }
