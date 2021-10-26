@@ -11,7 +11,7 @@ namespace UnityEngine.UI.Extensions
 {
 
     [RequireComponent(typeof(RectTransform), typeof(LayoutElement))]
-    public class ReorderableListElement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+    public class MG_Item : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
         #region Поля
         [BoxGroup("Debug"), SerializeField, ReadOnly] private readonly List<RaycastResult> _raycastResults = new List<RaycastResult>();
@@ -25,8 +25,8 @@ namespace UnityEngine.UI.Extensions
         [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _fakeElement;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private LayoutElement _fakeElementLE;
 
-        [BoxGroup("Debug"), SerializeField, ReadOnly] private int _displacedFromIndex;
-        [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _displacedObject;
+        //[BoxGroup("Debug"), SerializeField, ReadOnly] private int _displacedFromIndex;
+        //[BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _displacedObject;
 
         [BoxGroup("Debug"), SerializeField, ReadOnly] private bool _isDragging;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _rect;
@@ -81,11 +81,11 @@ namespace UnityEngine.UI.Extensions
 
             _draggingObject = _rect;
             _fromIndex = _rect.GetSiblingIndex();
-            _displacedFromIndex = -1;
+            //_displacedFromIndex = -1;
             //Send OnElementRemoved Event
             if (_reorderableList.OnElementRemoved != null)
             {
-                _reorderableList.OnElementRemoved.Invoke(new MG_ListItem
+                _reorderableList.OnElementRemoved.Invoke(new MG_ItemStruct
                 {
                     DroppedObject = _draggingObject.gameObject,
                     IsAClone = false,
@@ -117,7 +117,7 @@ namespace UnityEngine.UI.Extensions
             //Send OnElementGrabbed Event
             if (_reorderableList.OnElementGrabbed != null)
             {
-                _reorderableList.OnElementGrabbed.Invoke(new MG_ListItem
+                _reorderableList.OnElementGrabbed.Invoke(new MG_ItemStruct
                 {
                     DroppedObject = _draggingObject.gameObject,
                     IsAClone = false,
@@ -180,11 +180,11 @@ namespace UnityEngine.UI.Extensions
                 RefreshSizes();
                 _fakeElement.transform.SetParent(_reorderableList.DraggableArea, false);
                 // revert the displaced element when not hovering over its list
-                if (_displacedObject != null)
-                {
-                    Debug.Log("<color=red>DISABLED!</color>");
-                    //revertDisplacedElement();
-                }
+                //if (_displacedObject != null)
+                //{
+                //    Debug.Log("<color=red>DISABLED!</color>");
+                //    //revertDisplacedElement();
+                //}
             }
             //Else find the best position on the list and put fake element on the right index 
             else
@@ -214,17 +214,18 @@ namespace UnityEngine.UI.Extensions
                         targetIndex = j;
                     }
                 }
-                if ((_currentReorderableListRaycasted != _oldReorderableListRaycasted || targetIndex != _displacedFromIndex)
+                if ((_currentReorderableListRaycasted != _oldReorderableListRaycasted)// || targetIndex != _displacedFromIndex
                     )
                 {
                     Transform toDisplace = _currentReorderableListRaycasted.Content.GetChild(targetIndex);
-                    if (_displacedObject != null)
-                    {
-                        Debug.Log("<color=red>DISABLED!</color>");
-                        //revertDisplacedElement();
+                    //if (_displacedObject != null)
+                    //{
+                    //    Debug.Log("<color=red>DISABLED!</color>");
+                    //    //revertDisplacedElement();
 
-                    }
-                    else if (_fakeElement.parent != _currentReorderableListRaycasted.Content)
+                    //}
+                    //else 
+                    if (_fakeElement.parent != _currentReorderableListRaycasted.Content)
                     {
                         _fakeElement.SetParent(_currentReorderableListRaycasted.Content, false);
                         Debug.Log("<color=red>DISABLED!</color>");
@@ -250,7 +251,7 @@ namespace UnityEngine.UI.Extensions
             {
                 //If we have a ReorderableList that is dropable
                 //Put the dragged object into the content and at the right index
-                var args = new MG_ListItem
+                var args = new MG_ItemStruct
                 {
                     DroppedObject = _draggingObject.gameObject,
                     IsAClone = false,
@@ -325,7 +326,7 @@ namespace UnityEngine.UI.Extensions
             _draggingObject.SetSiblingIndex(_fromIndex);
 
 
-            var args = new MG_ListItem
+            var args = new MG_ItemStruct
             {
                 DroppedObject = _draggingObject.gameObject,
                 IsAClone = false,

@@ -11,8 +11,8 @@ namespace UnityEngine.UI.Extensions
     public class ReorderableListContent : MonoBehaviour
     {
         [BoxGroup("Debug"), SerializeField, ReadOnly] private List<Transform> _cachedChildren;
-        [BoxGroup("Debug"), SerializeField, ReadOnly] private List<ReorderableListElement> _cachedListElement;
-        [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableListElement _listElement;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private List<MG_Item> _cachedListElement;
+        [BoxGroup("Debug"), SerializeField, ReadOnly] private MG_Item _listElement;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private ReorderableList _extList;
         [BoxGroup("Debug"), SerializeField, ReadOnly] private RectTransform _rect;
 
@@ -32,7 +32,7 @@ namespace UnityEngine.UI.Extensions
             _extList = extList;
             _rect = GetComponent<RectTransform>();
             _cachedChildren = new List<Transform>();
-            _cachedListElement = new List<ReorderableListElement>();
+            _cachedListElement = new List<MG_Item>();
 
             StartCoroutine(RefreshChildren());
         }
@@ -47,7 +47,7 @@ namespace UnityEngine.UI.Extensions
             if (_cachedListElement.Any())
             {
                 int result = 0;
-                foreach (ReorderableListElement item in _cachedListElement)
+                foreach (MG_Item item in _cachedListElement)
                 {
                     if (item == null)
                         continue;
@@ -73,9 +73,9 @@ namespace UnityEngine.UI.Extensions
                 if (_cachedChildren.Contains(_rect.GetChild(i)))
                     continue;
 
-                //Get or Create ReorderableListElement
-                _listElement = _rect.GetChild(i).gameObject.GetComponent<ReorderableListElement>() ??
-                       _rect.GetChild(i).gameObject.AddComponent<ReorderableListElement>();
+                //Get or Create MG_Item
+                _listElement = _rect.GetChild(i).gameObject.GetComponent<MG_Item>() ??
+                       _rect.GetChild(i).gameObject.AddComponent<MG_Item>();
                 _listElement.Init(_extList);
 
                 _cachedChildren.Add(_rect.GetChild(i));

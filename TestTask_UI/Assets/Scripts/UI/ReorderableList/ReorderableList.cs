@@ -92,13 +92,13 @@ namespace UnityEngine.UI.Extensions
         #endregion Публичные методы
 
         #region Личные методы
-        //private void CountUp(MG_ListItem args)
+        //private void CountUp(MG_ItemStruct args)
         //{
         //    //_count++;
         //    //SetCountText(_count);
         //}
 
-        //private void CountDown(MG_ListItem args)
+        //private void CountDown(MG_ItemStruct args)
         //{
         //   // _count--;
         //   // SetCountText(_count);
@@ -126,7 +126,7 @@ namespace UnityEngine.UI.Extensions
         #region Nested type: ReorderableListHandler
 
         [Serializable]
-        public class ReorderableListHandler : UnityEvent<MG_ListItem>
+        public class ReorderableListHandler : UnityEvent<MG_ItemStruct>
         {
         }
         #endregion

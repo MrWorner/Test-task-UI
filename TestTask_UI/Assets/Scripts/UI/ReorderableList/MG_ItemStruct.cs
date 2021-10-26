@@ -5,7 +5,7 @@ using UnityEngine.UI.Extensions;
 namespace UnityEngine.UI.Extensions
 {
     [Serializable]
-    public struct MG_ListItem
+    public struct MG_ItemStruct
     {
         public GameObject DroppedObject;
         public int FromIndex;
