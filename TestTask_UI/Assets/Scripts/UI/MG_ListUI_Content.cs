@@ -127,7 +127,7 @@ namespace TestsTask_UI
             }
             _cachedChildren.Clear();
             _cachedListElement.Clear();
-            _main.Reset();
+            _main.ResetText();
 
         }
 
