@@ -38,16 +38,32 @@ namespace TestsTask_UI
         {
             if (_rect) StartCoroutine(RefreshChildren());
         }
+
+        public void OnTransformChildrenChanged()
+        {
+            if (this.isActiveAndEnabled) StartCoroutine(RefreshChildren());
+        }
         #endregion Методы UNITY
 
-        #region Публичные методы Static
+        #region Публичные методы Stati
+
+        /// <summary>
+        /// Получить все листы
+        /// </summary>
+        /// <returns></returns>
         public static IReadOnlyCollection<MG_ListUI_Content> GetAllLists()
         {
             return _all_lists;
         }
+
         #endregion Публичные методы Static
 
         #region Публичные методы
+
+        /// <summary>
+        /// Инициализация
+        /// </summary>
+        /// <param name="extList"></param>
         public void Init(MG_ListUI extList)
         {
             _main = extList;
@@ -55,6 +71,9 @@ namespace TestsTask_UI
             Refresh();
         }
 
+        /// <summary>
+        /// Обновить
+        /// </summary>
         public void Refresh()
         {
             _cachedChildren = new List<Transform>();
@@ -130,16 +149,14 @@ namespace TestsTask_UI
             _main.ResetText();
 
         }
-
-
-        public void OnTransformChildrenChanged()
-        {
-            if (this.isActiveAndEnabled) StartCoroutine(RefreshChildren());
-        }
         #endregion Публичные методы
 
         #region Личные методы
 
+        /// <summary>
+        /// Проверить ID
+        /// </summary>
+        /// <param name="list"></param>
         private static void CheckID(MG_ListUI_Content list)
         {
             int id = list._id;
@@ -155,15 +172,17 @@ namespace TestsTask_UI
             }
         }
 
+        /// <summary>
+        /// Обновить child
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator RefreshChildren()
         {
-            //Handle new children
             for (int i = 0; i < _rect.childCount; i++)
             {
                 if (_cachedChildren.Contains(_rect.GetChild(i)))
                     continue;
 
-                //Get or Create MG_Item
                 _item = _rect.GetChild(i).gameObject.GetComponent<MG_Item>() ??
                        _rect.GetChild(i).gameObject.AddComponent<MG_Item>();
                 _item.Init(_main);
@@ -172,10 +191,8 @@ namespace TestsTask_UI
                 _cachedListElement.Add(_item);
             }
 
-            //HACK a little hack, if I don't wait one frame I don't have the right deleted children
-            yield return 0;
+            yield return 0;//Фикс
 
-            //Remove deleted child
             for (int i = _cachedChildren.Count - 1; i >= 0; i--)
             {
                 if (_cachedChildren[i] == null)
