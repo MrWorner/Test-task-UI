@@ -242,7 +242,7 @@ PrefabInstance:
     - target: {fileID: 6746149802512195276, guid: 8479594de9419b04fa1069ed6016d636,
         type: 3}
       propertyPath: m_Text
-      value: 3
+      value: "\u0429\u0443\u043A\u0430"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8479594de9419b04fa1069ed6016d636, type: 3}
@@ -462,7 +462,7 @@ MonoBehaviour:
   - {fileID: 433850407}
   - {fileID: 1142775876}
   _item: {fileID: 0}
-  _extList: {fileID: 1893066121}
+  _main: {fileID: 0}
   _rect: {fileID: 178427159}
 --- !u!1 &277190037
 GameObject:
@@ -765,7 +765,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0417\u0410\u0413\u041E\u041B\u041E\u0412\u041E\u041A"
+  m_Text: "\u041B\u0418\u0421\u0422 2"
 --- !u!222 &373984752
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -955,7 +955,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0417\u0410\u0413\u041E\u041B\u041E\u0412\u041E\u041A"
+  m_Text: "\u041B\u0418\u0421\u0422 1"
 --- !u!222 &497571583
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1244,7 +1244,7 @@ PrefabInstance:
     - target: {fileID: 6746149802512195276, guid: 8479594de9419b04fa1069ed6016d636,
         type: 3}
       propertyPath: m_Text
-      value: 1
+      value: "\u0421\u0443\u0434\u0430\u043A"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8479594de9419b04fa1069ed6016d636, type: 3}
@@ -1773,7 +1773,7 @@ MonoBehaviour:
   - {fileID: 433850407}
   - {fileID: 1142775876}
   _item: {fileID: 0}
-  _extList: {fileID: 1893066121}
+  _main: {fileID: 0}
   _rect: {fileID: 178427159}
 --- !u!1001 &1277105380
 PrefabInstance:
@@ -1895,7 +1895,7 @@ PrefabInstance:
     - target: {fileID: 6746149802512195276, guid: 8479594de9419b04fa1069ed6016d636,
         type: 3}
       propertyPath: m_Text
-      value: 3
+      value: "\u041B\u043E\u0441\u043E\u0441\u044C"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8479594de9419b04fa1069ed6016d636, type: 3}
@@ -2082,7 +2082,7 @@ PrefabInstance:
     - target: {fileID: 6746149802512195276, guid: 8479594de9419b04fa1069ed6016d636,
         type: 3}
       propertyPath: m_Text
-      value: 2
+      value: "\u0423\u0433\u043E\u0440\u044C"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8479594de9419b04fa1069ed6016d636, type: 3}
@@ -2206,7 +2206,7 @@ PrefabInstance:
     - target: {fileID: 6746149802512195276, guid: 8479594de9419b04fa1069ed6016d636,
         type: 3}
       propertyPath: m_Text
-      value: 1
+      value: "\u041A\u0430\u0440\u043F"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8479594de9419b04fa1069ed6016d636, type: 3}
@@ -2644,7 +2644,7 @@ PrefabInstance:
     - target: {fileID: 6746149802512195276, guid: 8479594de9419b04fa1069ed6016d636,
         type: 3}
       propertyPath: m_Text
-      value: 2
+      value: "\u041E\u043A\u0443\u043D\u044C"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8479594de9419b04fa1069ed6016d636, type: 3}

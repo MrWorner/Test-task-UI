@@ -5,9 +5,11 @@
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-namespace UnityEngine.UI.Extensions
+namespace TestsTask_UI
 {
     public class MG_Item : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {

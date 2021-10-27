@@ -5,8 +5,9 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
-namespace UnityEngine.UI.Extensions
+namespace TestsTask_UI
 {
     public class MG_ListUI_Content : MonoBehaviour
     {

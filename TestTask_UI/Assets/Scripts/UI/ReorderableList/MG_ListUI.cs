@@ -3,9 +3,11 @@
 
 using Sirenix.OdinInspector;
 using System;
+using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
-namespace UnityEngine.UI.Extensions
+namespace TestsTask_UI
 {
 
     public class MG_ListUI : MonoBehaviour

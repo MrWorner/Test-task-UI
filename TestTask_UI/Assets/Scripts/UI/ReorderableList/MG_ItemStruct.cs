@@ -1,8 +1,8 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.UI.Extensions;
 
-namespace UnityEngine.UI.Extensions
+
+namespace TestsTask_UI
 {
     [Serializable]
     public struct MG_ItemStruct

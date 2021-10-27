@@ -1,8 +1,11 @@
 ﻿using System;
 using UnityEngine.Events;
-using UnityEngine.UI.Extensions;
 
-[Serializable]
-public class MG_ListHandler : UnityEvent<MG_ItemStruct>
+
+namespace TestsTask_UI
 {
+    [Serializable]
+    public class MG_ListHandler : UnityEvent<MG_ItemStruct>
+    {
+    }
 }

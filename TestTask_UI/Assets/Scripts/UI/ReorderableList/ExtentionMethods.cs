@@ -1,4 +1,6 @@
-﻿namespace UnityEngine.UI.Extensions
+﻿using UnityEngine;
+
+namespace TestsTask_UI
 {
     public static class ExtentionMethods
     {
