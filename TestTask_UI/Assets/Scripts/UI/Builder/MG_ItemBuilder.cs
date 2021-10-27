@@ -13,10 +13,8 @@ namespace TestsTask_UI
         [PropertyOrder(-1), BoxGroup("ТРЕБОВАНИЯ"), Required(InfoMessageType.Error), SerializeField] GameObject _prefab;
         #endregion Поля
 
-        #region Свойства
-        #endregion Свойства
-
         #region Методы UNITY
+
         void Awake()
         {
             if (_instance == null)
@@ -26,18 +24,22 @@ namespace TestsTask_UI
 
             if (_prefab == null) Debug.Log("<color=red>MG_ItemBuilder Awake(): '_prefab' не прикреплен!</color>");
         }
+
         #endregion Методы UNITY
 
         #region Публичные методы
+
+        /// <summary>
+        /// Создать элемент
+        /// </summary>
+        /// <returns></returns>
         public GameObject Build()
         {
             GameObject newItem = Instantiate(_prefab, new Vector3(0, 0, 0), Quaternion.identity);
             return newItem;
         }
+
         #endregion Публичные методы
 
-        #region Личные методы
-
-        #endregion Личные Личные
     }
 }

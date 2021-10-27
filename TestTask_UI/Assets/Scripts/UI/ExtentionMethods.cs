@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//Данный класс взят из UNITY 3D UI EXTENSIONS: https://bitbucket.org/UnityUIExtensions/unity-ui-extensions/src/release/
+
+using UnityEngine;
 
 namespace TestsTask_UI
 {

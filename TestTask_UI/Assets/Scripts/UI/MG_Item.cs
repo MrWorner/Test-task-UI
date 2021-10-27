@@ -1,6 +1,4 @@
-﻿/// Credit Ziboo, Andrew Quesenberry 
-/// Sourced from - http://forum.unity3d.com/threads/free-reorderable-list.364600/
-/// Last Child Fix - https://bitbucket.org/SimonDarksideJ/unity-ui-extensions/issues/70/all-re-orderable-lists-cause-a-transform
+﻿//За основу класса лежит UNITY 3D UI EXTENSIONS: https://bitbucket.org/UnityUIExtensions/unity-ui-extensions/src/release/
 
 using Sirenix.OdinInspector;
 using System;
@@ -38,18 +36,24 @@ namespace TestsTask_UI
         #endregion Поля
 
         #region Свойства
-        public Text TextLabel { get => _text;  }
+        public Text TextLabel { get => _text; }
         #endregion Свойства
 
-
         #region Методы UNITY
+
         void Awake()
         {
             if (_text == null && !IsFake()) Debug.Log("<color=red>MG_Item Awake(): '_text' не прикреплен!</color>");
         }
+
         #endregion Методы UNITY
 
         #region Публичные методы
+
+        /// <summary>
+        /// Инициализация
+        /// </summary>
+        /// <param name="reorderableList"></param>
         public void Init(MG_ListUI reorderableList)
         {
             _reorderableList = reorderableList;
@@ -63,16 +67,6 @@ namespace TestsTask_UI
         /// <returns>фейк</returns>
         public bool IsFake()
         {
-
-            //if (_fakeElement != null)
-            //{
-            //    if (_fakeElement.gameObject.Equals(this.gameObject))
-            //    {
-            //        return true;
-            //    }
-            //}
-            //return false;
-
             if (name.Equals("Fake"))
             {
                 return true;
@@ -81,15 +75,6 @@ namespace TestsTask_UI
             {
                 return false;
             }
-        }
-
-        /// <summary>
-        /// Получить ID листа
-        /// </summary>
-        /// <returns>ID</returns>
-        public int GetListID()
-        {
-            return -1;//WIP
         }
 
         /// <summary>
@@ -104,6 +89,10 @@ namespace TestsTask_UI
 
         #region Методы интерфейса "IBeginDragHandler"
 
+        /// <summary>
+        /// При начале перетаскивания
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnBeginDrag(PointerEventData eventData)
         {
             _canvasGroup.blocksRaycasts = false;
@@ -113,8 +102,7 @@ namespace TestsTask_UI
 
             _draggingObject = _rect;
             _fromIndex = _rect.GetSiblingIndex();
-            //_displacedFromIndex = -1;
-            //Send OnElementRemoved Event
+
             if (_reorderableList.OnElementRemoved != null)
             {
                 _reorderableList.OnElementRemoved.Invoke(new MG_ItemStruct
@@ -132,21 +120,17 @@ namespace TestsTask_UI
                 return;
             }
 
-            //Put _dragging object into the dragging area
             _draggingObjectOriginalSize = gameObject.GetComponent<RectTransform>().rect.size;
             _draggingObjectLE = _draggingObject.GetComponent<LayoutElement>();
             _draggingObject.SetParent(_reorderableList.DraggableArea, true);
             _draggingObject.SetAsLastSibling();
             _reorderableList.Refresh();
 
-            //Create a fake element for previewing placement
             _fakeElement = new GameObject("Fake").AddComponent<RectTransform>();
             _fakeElementLE = _fakeElement.gameObject.AddComponent<LayoutElement>();
 
-
             RefreshSizes();
 
-            //Send OnElementGrabbed Event
             if (_reorderableList.OnElementGrabbed != null)
             {
                 _reorderableList.OnElementGrabbed.Invoke(new MG_ItemStruct
@@ -160,7 +144,6 @@ namespace TestsTask_UI
 
                 if (!isValid)
                 {
-                    //Debug.Log("<color=red>DISABLED!</color>");
                     CancelDrag();
                     return;
                 }
@@ -173,6 +156,10 @@ namespace TestsTask_UI
 
         #region Методы интерфейса "IDragHandler"
 
+        /// <summary>
+        /// При перетаскивания
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnDrag(PointerEventData eventData)
         {
 
@@ -180,11 +167,10 @@ namespace TestsTask_UI
                 return;
             if (!isValid)
             {
-                //Debug.Log("<color=red>DISABLED!</color>");
                 CancelDrag();
                 return;
             }
-            //Set dragging object on cursor
+
             var canvas = _draggingObject.GetComponentInParent<Canvas>();
             Vector3 worldPoint;
             RectTransformUtility.ScreenPointToWorldPointInRectangle(canvas.GetComponent<RectTransform>(), eventData.position,
@@ -193,7 +179,6 @@ namespace TestsTask_UI
 
             MG_ListUI _oldReorderableListRaycasted = _currentReorderableListRaycasted;
 
-            //Check everything under the cursor to find a MG_ListUI
             EventSystem.current.RaycastAll(eventData, _raycastResults);
             for (int i = 0; i < _raycastResults.Count; i++)
             {
@@ -204,21 +189,11 @@ namespace TestsTask_UI
                 }
             }
 
-            //If nothing found or the list is not dropable, put the fake element outside
-            if (
-                _currentReorderableListRaycasted == null
-                )
+            if (_currentReorderableListRaycasted == null)
             {
                 RefreshSizes();
                 _fakeElement.transform.SetParent(_reorderableList.DraggableArea, false);
-                // revert the displaced element when not hovering over its list
-                //if (_displacedObject != null)
-                //{
-                //    Debug.Log("<color=red>DISABLED!</color>");
-                //    //revertDisplacedElement();
-                //}
             }
-            //Else find the best position on the list and put fake element on the right index 
             else
             {
                 if (_fakeElement.parent != _currentReorderableListRaycasted.Content)
@@ -246,24 +221,7 @@ namespace TestsTask_UI
                         targetIndex = j;
                     }
                 }
-                if ((_currentReorderableListRaycasted != _oldReorderableListRaycasted)// || targetIndex != _displacedFromIndex
-                    )
-                {
-                    Transform toDisplace = _currentReorderableListRaycasted.Content.GetChild(targetIndex);
-                    //if (_displacedObject != null)
-                    //{
-                    //    Debug.Log("<color=red>DISABLED!</color>");
-                    //    //revertDisplacedElement();
 
-                    //}
-                    //else 
-                    if (_fakeElement.parent != _currentReorderableListRaycasted.Content)
-                    {
-                        _fakeElement.SetParent(_currentReorderableListRaycasted.Content, false);
-                        Debug.Log("<color=red>DISABLED!</color>");
-                        //displaceElement(targetIndex, toDisplace);
-                    }
-                }
                 RefreshSizes();
                 _fakeElement.SetSiblingIndex(targetIndex);
                 _fakeElement.gameObject.SetActive(true);
@@ -275,14 +233,16 @@ namespace TestsTask_UI
 
         #region Методы интерфейса "IEndDragHandler"
 
+        /// <summary>
+        /// Конец перетаскивания
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnEndDrag(PointerEventData eventData)
         {
             _isDragging = false;
 
             if (_draggingObject != null)
             {
-                //If we have a MG_ListUI that is dropable
-                //Put the dragged object into the content and at the right index
                 var args = new MG_ItemStruct
                 {
                     DroppedObject = _draggingObject.gameObject,
@@ -293,7 +253,7 @@ namespace TestsTask_UI
                     ToList = _currentReorderableListRaycasted,
                     ToIndex = _fakeElement.GetSiblingIndex()
                 };
-                //Send OnelementDropped Event
+
                 if (_reorderableList && _reorderableList.OnElementDropped != null)
                 {
                     _reorderableList.OnElementDropped.Invoke(args);
@@ -307,14 +267,13 @@ namespace TestsTask_UI
                 _draggingObject.SetParent(_currentReorderableListRaycasted.Content, false);
                 _draggingObject.rotation = _currentReorderableListRaycasted.transform.rotation;
                 _draggingObject.SetSiblingIndex(_fakeElement.GetSiblingIndex());
-                // Force refreshing both lists because otherwise we get inappropriate FromList in ReorderableListEventStruct 
+
                 _reorderableList.Refresh();
                 _currentReorderableListRaycasted.Refresh();
 
                 _reorderableList.OnElementAdded.Invoke(args);
             }
 
-            //Delete fake element
             if (_fakeElement != null)
             {
                 Destroy(_fakeElement.gameObject);
@@ -326,6 +285,10 @@ namespace TestsTask_UI
         #endregion
 
         #region Личные методы
+
+        /// <summary>
+        /// Обновить размер
+        /// </summary>
         private void RefreshSizes()
         {
             Vector2 size = _draggingObjectOriginalSize;
@@ -348,6 +311,9 @@ namespace TestsTask_UI
 
         }
 
+        /// <summary>
+        /// Отменить перетаскивание
+        /// </summary>
         private void CancelDrag()
         {
             _isDragging = false;
@@ -373,7 +339,6 @@ namespace TestsTask_UI
 
             _reorderableList.OnElementAdded.Invoke(args);
 
-            //Delete fake element
             if (_fakeElement != null)
             {
                 Destroy(_fakeElement.gameObject);
@@ -382,6 +347,5 @@ namespace TestsTask_UI
             _canvasGroup.blocksRaycasts = true;
         }
         #endregion Личные Личные
-
     }
 }

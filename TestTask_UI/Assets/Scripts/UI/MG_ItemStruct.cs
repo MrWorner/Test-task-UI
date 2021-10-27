@@ -1,6 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿//За основу класса лежит UNITY 3D UI EXTENSIONS: https://bitbucket.org/UnityUIExtensions/unity-ui-extensions/src/release/
 
+using System;
+using UnityEngine;
 
 namespace TestsTask_UI
 {
@@ -14,6 +15,5 @@ namespace TestsTask_UI
         public GameObject SourceObject;
         public int ToIndex;
         public MG_ListUI ToList;
-
     }
 }

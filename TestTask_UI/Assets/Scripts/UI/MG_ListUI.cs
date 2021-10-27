@@ -1,5 +1,4 @@
-﻿/// Credit Ziboo
-/// Sourced from - http://forum.unity3d.com/threads/free-reorderable-list.364600/
+﻿//За основу класса лежит UNITY 3D UI EXTENSIONS: https://bitbucket.org/UnityUIExtensions/unity-ui-extensions/src/release/
 
 using Sirenix.OdinInspector;
 using System;
@@ -80,7 +79,6 @@ namespace TestsTask_UI
             Refresh();
         }
         #endregion Методы UNITY
-
 
         #region Публичные методы
         

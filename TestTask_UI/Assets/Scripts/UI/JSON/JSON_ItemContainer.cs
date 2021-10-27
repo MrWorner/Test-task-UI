@@ -16,20 +16,33 @@ namespace TestsTask_UI
         #endregion Поля
 
         #region Публичные методы Static
+
+        /// <summary>
+        /// Получить элементы листов
+        /// </summary>
+        /// <returns></returns>
         public static IReadOnlyList<JSON_Item> GetJSON_Items()
         {
             return _instance._items;
         }
+
         #endregion Публичные методы Static
 
         #region Публичные методы
 
+        /// <summary>
+        /// Конструктор
+        /// </summary>
         public JSON_ItemContainer()
         {
             _instance = this;
         }
 
-
+        /// <summary>
+        /// Обработать элементы листа
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="listID"></param>
         public void Process(IReadOnlyList<MG_Item> items, int listID)
         {
             if (items.Any())
@@ -44,6 +57,12 @@ namespace TestsTask_UI
         #endregion Публичные методы
 
         #region Личные методы
+
+        /// <summary>
+        /// Сгенерировать JSON ITEM
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="listID"></param>
         private void GenerateJSON_Item(MG_Item item, int listID)
         {
             JSON_Item json_item = new JSON_Item();
@@ -52,6 +71,7 @@ namespace TestsTask_UI
 
             _items.Add(json_item);
         }
+
         #endregion Личные Личные
     }
 }
