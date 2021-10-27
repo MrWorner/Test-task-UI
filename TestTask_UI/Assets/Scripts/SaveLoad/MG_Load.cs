@@ -17,6 +17,7 @@ namespace TestsTask_UI
         #endregion Поля
 
         #region Методы UNITY
+
         private void Awake()
         {
             if (_instance == null)
@@ -27,10 +28,13 @@ namespace TestsTask_UI
             if (_settings == null) Debug.Log("<color=red>MG_Load Awake(): '_settings' не задан!</color>");
             if (_itemBuilder == null) Debug.Log("<color=red>MG_Load Awake(): '_itemBuilder' не задан!</color>");
         }
+
         #endregion Методы UNITY
 
+        #region Публичные методы
+
         /// <summary>
-        /// Сохранить списки
+        /// Загрузить
         /// </summary>
         [Button]
         public void Execute()
@@ -76,5 +80,7 @@ namespace TestsTask_UI
 
             }
         }
+
+        #endregion Публичные методы
     }
 }

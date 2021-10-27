@@ -31,8 +31,11 @@ namespace TestsTask_UI
         }
         #endregion Методы UNITY
 
+
+        #region Публичные методы
+
         /// <summary>
-        /// Сохранить списки
+        /// Сохранить
         /// </summary>
         [Button]
         public void Execute()
@@ -60,5 +63,9 @@ namespace TestsTask_UI
             File.WriteAllText(filePath, json);
             if (_openFolder) Process.Start(filePath);
         }
+
+        #endregion Публичные методы
+
+
     }
 }

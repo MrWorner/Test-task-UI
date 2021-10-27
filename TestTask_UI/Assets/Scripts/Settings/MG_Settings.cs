@@ -1,10 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////
-//
-//	Описание:					
-//			    
-/////////////////////////////////////////////////////////////////////////////////
-
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -21,12 +15,8 @@ namespace TestsTask_UI
         [BoxGroup("Путь к файлу сохранения"), Required(InfoMessageType.Error), SerializeField] string _fileName = "SavedSession.json";
         #endregion Поля
 
-        #region Свойства
-        //public string Path { get => _path; }
-        //public string FileName { get => _fileName; }
-        #endregion Свойства
-
         #region Методы UNITY
+
         void Awake()
         {
             if (_instance == null)
@@ -37,9 +27,15 @@ namespace TestsTask_UI
             if (_path.Length < 1) GeneratePath();
             if (_fileName.Length < 1) GenerateFileName();
         }
+
         #endregion Методы UNITY
 
         #region Публичные методы
+
+        /// <summary>
+        /// Получить путь
+        /// </summary>
+        /// <returns></returns>
         public string GetFilePath()
         {
             return Path.Combine(_path, _fileName);
@@ -47,17 +43,25 @@ namespace TestsTask_UI
         #endregion Публичные методы
 
         #region Личные методы
+
+        /// <summary>
+        /// Сгенерировать путь
+        /// </summary>
         [Button]
         private void GeneratePath()
         {
             _path = Application.dataPath;
         }
 
+        /// <summary>
+        /// Сгенерировать имя
+        /// </summary>
         [Button]
         private void GenerateFileName()
         {
             _fileName = "SavedSession.json";
         }
+
         #endregion Личные Личные
     }
 }
